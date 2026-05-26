@@ -1,0 +1,2 @@
+#!/bin/sh
+npm run typecheck --prefix worker & npx lint-staged & wait
