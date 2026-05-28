@@ -8,12 +8,35 @@ import {XExtractError} from "./errors";
 import {isJsonObject} from "./guards";
 import {parseTweetId} from "./tweet-url";
 import type {JsonObject} from "./types";
+import {shuffleWorkaroundTokens} from "./workaround-tokens";
 
-export async function extractStatusV2Rest(input: string, authToken?: string): Promise<JsonObject> {
+export async function extractStatusV2Rest(
+  input: string,
+  authTokens: readonly string[] = [],
+): Promise<JsonObject> {
   const tweetId = parseTweetId(input);
-
   const guestToken = await getGuestToken();
 
+  // first try to use the auth tokens
+  for (const authToken of shuffleWorkaroundTokens(authTokens)) {
+    try {
+      return await fetchTweetResultByRestId(tweetId, guestToken, authToken);
+    } catch (error) {
+      if (!(error instanceof XExtractError)) {
+        throw error;
+      }
+    }
+  }
+  console.log("no auth tokens - using guest token");
+  // if no auth tokens are provided, use the guest token
+  return fetchTweetResultByRestId(tweetId, guestToken);
+}
+
+async function fetchTweetResultByRestId(
+  tweetId: string,
+  guestToken: string,
+  authToken?: string,
+): Promise<JsonObject> {
   const response = await fetch(buildTweetResultByRestIdUrl(tweetId), {
     headers: getAuthHeaders({authToken, guestToken}),
   });
@@ -30,6 +53,7 @@ export async function extractStatusV2Rest(input: string, authToken?: string): Pr
 
   const tweet = parseTweetResultByRestId(output, tweetId);
   flattenLegacyCard(tweet);
+  requireLegacyTweet(tweet);
 
   return tweet;
 }
@@ -110,5 +134,11 @@ function flattenLegacyCard(tweet: JsonObject): void {
   const legacy = card.legacy;
   if (isJsonObject(legacy)) {
     tweet.card = legacy;
+  }
+}
+
+function requireLegacyTweet(tweet: JsonObject): void {
+  if (!isJsonObject(tweet.legacy)) {
+    throw new XExtractError(400, "Extract error");
   }
 }

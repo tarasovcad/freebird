@@ -1,0 +1,22 @@
+# Copy this file to `.dev.vars` for local development.
+#
+# `.dev.vars` is ignored by git and should contain your real secrets.
+# Do not commit real X auth tokens.
+
+# Comma-separated X `auth_token` cookie values.
+#
+# Where to get one:
+# 1. Log into X in a browser using a spare/non-main account.
+# 2. Open DevTools.
+# 3. Go to Application/Storage -> Cookies -> https://x.com.
+# 4. Copy the value of the cookie named `auth_token`.
+# 5. Paste only the cookie value below.
+#
+# One token:
+# VXTWITTER_WORKAROUND_TOKENS=auth_token_value_from_one_account
+#
+# Multiple tokens:
+# VXTWITTER_WORKAROUND_TOKENS=token_from_account_1,token_from_account_2
+#
+# Leave empty to use anonymous guest-token fetching only.
+VXTWITTER_WORKAROUND_TOKENS=
