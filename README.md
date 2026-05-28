@@ -36,3 +36,8 @@ freebird/
         ├── fetcher.ts      # Twitter fetch logic
         └── package.json
 ```
+
+# Sources / Helpful links
+
+https://scrapfly.io/blog/posts/how-to-scrape-twitter
+https://data365.co/blog/twitter-graphql-api
