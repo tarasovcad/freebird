@@ -1,7 +1,8 @@
 import {Hono} from "hono";
 import {XExtractError} from "./x/errors";
 import {fixTweetData} from "./x/fix-tweet-data";
-import {extractStatusV2Rest} from "./x/tweet-result-by-rest-id";
+// import {extractStatusV2Rest} from "./x/tweet-result-by-rest-id";
+import {extractStatusV2} from "./x/tweet-results-by-ids";
 import {parseWorkaroundTokens} from "./x/workaround-tokens";
 
 type Bindings = {
@@ -19,7 +20,8 @@ app.get("/status", async (c) => {
 
   try {
     const authTokens = parseWorkaroundTokens(c.env.VXTWITTER_WORKAROUND_TOKENS);
-    const tweet = await extractStatusV2Rest(url, authTokens);
+    // const tweet = await extractStatusV2Rest(url, authTokens);
+    const tweet = await extractStatusV2(url, authTokens, {simultaneousRequests: 2});
     return c.json(fixTweetData(tweet));
   } catch (error) {
     if (error instanceof XExtractError) {

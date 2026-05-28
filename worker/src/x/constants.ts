@@ -27,6 +27,8 @@ export const GUEST_ACTIVATE_BEARER =
 
 export const TWEET_RESULT_BY_REST_ID_QUERY_ID = "0aTrQMKgj95K791yXeNDRA";
 
+export const TWEET_RESULTS_BY_IDS_QUERY_ID = "2OOZWmw8nAtUHVnXXQhgaA";
+
 export const TWEET_RESULT_BY_REST_ID_FEATURES = {
   // --- Grok (AI features) ---
   responsive_web_grok_analyze_button_fetch_trends_enabled: false,
@@ -76,6 +78,24 @@ export const TWEET_RESULT_BY_REST_ID_FEATURES = {
 
   // --- Misc / unclassified ---
   responsive_web_enhance_cards_enabled: false,
+} as const;
+
+export const TWEET_RESULTS_BY_IDS_FEATURES = {
+  longform_notetweets_inline_media_enabled: true,
+  super_follow_badge_privacy_enabled: true,
+  longform_notetweets_rich_text_read_enabled: true,
+  super_follow_user_api_enabled: true,
+  super_follow_tweet_api_enabled: true,
+  android_graphql_skip_api_media_color_palette: true,
+  creator_subscriptions_tweet_preview_api_enabled: true,
+  freedom_of_speech_not_reach_fetch_enabled: true,
+  creator_subscriptions_subscription_count_enabled: true,
+  tweetypie_unmention_optimization_enabled: true,
+  longform_notetweets_consumption_enabled: true,
+  subscriptions_verification_info_enabled: true,
+  blue_business_profile_image_shape_enabled: true,
+  tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled: true,
+  super_follow_exclusive_tweet_notifications_enabled: true,
 } as const;
 
 export const TWEET_RESULT_BY_REST_ID_FIELD_TOGGLES = {
