@@ -3,6 +3,7 @@ import {fixTweetData} from "./fix-tweet-data";
 import {isJsonObject} from "./guards";
 import {extractStatusV2Android} from "./tweet-conversation-timeline-v2-android";
 import {extractStatusV2Rest} from "./tweet-result-by-rest-id";
+import {extractStatusSyndication} from "./tweet-syndication";
 import {extractStatusV2} from "./tweet-results-by-ids";
 import type {JsonObject} from "./types";
 
@@ -41,6 +42,17 @@ export async function extractStatus(
         continue;
       }
 
+      throw error;
+    }
+  }
+  //  FALLBACK: if all attempts fail - we use the syndication endpoint as a last resort, since it doesn't require auth tokens and can still provide data for some tweets
+  // It's not in attempts because it doesn't return a legacy GraphQL shape.
+  try {
+    return await extractStatusSyndication(input);
+  } catch (error) {
+    if (error instanceof XExtractError) {
+      lastError = error;
+    } else {
       throw error;
     }
   }

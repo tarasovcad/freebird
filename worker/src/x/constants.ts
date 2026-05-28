@@ -144,3 +144,5 @@ export const ANDROID_CONVERSATION_TIMELINE_V2_FEATURES = {
   immersive_video_status_linkable_timestamps: true,
   profile_label_improvements_pcf_label_in_post_enabled: true,
 } as const;
+
+export const SYNDICATION_URL = "https://cdn.syndication.twimg.com/tweet-result";
