@@ -8,11 +8,25 @@ const MAX_GUEST_TOKEN_USES = 40;
 let cachedGuestToken: string | null = null;
 let cachedGuestTokenUses = 0;
 
-export function getAuthHeaders(options: {authToken?: string; guestToken?: string}): HeadersInit {
+type AuthHeaderOptions = {
+  authToken?: string;
+  guestToken?: string;
+  bearerToken?: string;
+  userAgent?: string;
+};
+
+/**
+ * Shared auth headers for all fetchers.
+ *
+ * - Default path (Rest/web): omit bearerToken + userAgent => web defaults.
+ * - Android path (ConversationTimelineV2): pass ANDROID bearer + Android User-Agent.
+ * - guestToken is only needed by guest-token/anon methods.
+ */
+export function getAuthHeaders(options: AuthHeaderOptions): HeadersInit {
   const csrfToken = crypto.randomUUID().replaceAll("-", "");
   const headers: Record<string, string> = {
-    Authorization: GUEST_ACTIVATE_BEARER,
-    "User-Agent": REQUEST_USER_AGENT,
+    Authorization: options.bearerToken ?? GUEST_ACTIVATE_BEARER,
+    "User-Agent": options.userAgent ?? REQUEST_USER_AGENT,
     "x-csrf-token": csrfToken,
     "x-twitter-active-user": "yes",
     "x-twitter-client-language": "en",
@@ -30,6 +44,8 @@ export function getAuthHeaders(options: {authToken?: string; guestToken?: string
   return headers;
 }
 
+// Guest token helpers are used by guest/anon methods (e.g. RestId anon path),
+// not by ConversationTimelineV2 Android.
 export async function getGuestToken(): Promise<string> {
   if (cachedGuestToken !== null) {
     cachedGuestTokenUses += 1;
