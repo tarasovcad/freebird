@@ -96,15 +96,15 @@ export function simplifyTweet(tweet: JsonObject): JsonObject {
   return simplifyTweetInternal(tweet, createSimplifyTweetOptions(true));
 }
 
-export async function simplifyTweetWithQuoted(
+export async function simplifyTweetWithResolvedTweets(
   tweet: JsonObject,
-  resolveQuotedTweet: (url: string) => Promise<JsonObject | null>,
+  resolveTweet: (url: string) => Promise<JsonObject | null>,
 ): Promise<JsonObject> {
   const options = createSimplifyTweetOptions(true);
   const simplified = simplifyTweetInternal(tweet, options);
 
   if (!simplified.post.qrt && simplified.post.qrtURL) {
-    const quotedTweet = await resolveQuotedTweet(simplified.post.qrtURL);
+    const quotedTweet = await resolveTweet(simplified.post.qrtURL);
     if (quotedTweet) {
       simplified.post.qrt = flattenQuotedTweet(
         simplifyTweetInternal(quotedTweet, {...options, includeQuotedTweet: false}),

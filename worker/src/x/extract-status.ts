@@ -4,7 +4,12 @@ import {isJsonObject} from "./guards";
 import {extractStatusV2Android} from "./tweet-conversation-timeline-v2-android";
 import {extractStatusV2Rest} from "./tweet-result-by-rest-id";
 import {extractStatusSyndication} from "./tweet-syndication";
-import {extractStatusV2TweetDetail} from "./tweet-detail";
+import {
+  extractStatusV2TweetDetail,
+  extractStatusV2TweetDetailChain,
+  getReplyParentId,
+  type ReplyChainResult,
+} from "./tweet-detail";
 import {extractStatusV2} from "./tweet-results-by-ids";
 import type {JsonObject} from "./types";
 
@@ -34,7 +39,7 @@ export async function extractStatus(
     try {
       const tweet = await attempt();
       if (hasLegacyTweet(tweet)) {
-        return fixTweetData(tweet);
+        return addReplyContextIfNeeded(input, tweet, options);
       }
 
       lastError = new XExtractError(400, "Extract error");
@@ -62,6 +67,46 @@ export async function extractStatus(
   throw lastError ?? new XExtractError(400, "Extract error");
 }
 
+async function addReplyContextIfNeeded(
+  input: string,
+  tweet: JsonObject,
+  options: ExtractStatusOptions,
+): Promise<JsonObject> {
+  const authTokens = options.authTokens ?? [];
+  const simultaneousRequests = options.simultaneousRequests;
+  const fixedTweet = fixTweetData(tweet);
+  const parentId = getReplyParentId(fixedTweet);
+
+  if (!parentId) {
+    return fixedTweet;
+  }
+
+  try {
+    return normalizeReplyChainResult(
+      await extractStatusV2TweetDetailChain(input, authTokens, {simultaneousRequests}, fixedTweet),
+    );
+  } catch (error) {
+    if (!(error instanceof XExtractError)) {
+      throw error;
+    }
+
+    return {
+      tweet: fixedTweet,
+      reply_chain: [],
+      reply_chain_complete: false,
+      missing_reply_to_status_id: parentId,
+    };
+  }
+}
+
 function hasLegacyTweet(tweet: JsonObject): boolean {
   return isJsonObject(tweet.legacy);
+}
+
+function normalizeReplyChainResult(result: ReplyChainResult): ReplyChainResult {
+  return {
+    ...result,
+    tweet: fixTweetData(result.tweet),
+    reply_chain: result.reply_chain.map((tweet) => fixTweetData(tweet)),
+  };
 }

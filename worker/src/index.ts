@@ -1,8 +1,9 @@
 import {Hono, Context} from "hono";
 import {XExtractError} from "./x/errors";
+import {simplifyStatusResponse, isReplyChainResult} from "./x/simplify-status-response";
 import {extractStatusByMethod, isStatusMethod} from "./x/status-method";
 import {parseWorkaroundTokens} from "./x/workaround-tokens";
-import {simplifyTweetWithQuoted} from "./x/simplify-tweet";
+import type {JsonObject} from "./x/types";
 
 type Bindings = {
   VXTWITTER_WORKAROUND_TOKENS?: string;
@@ -33,30 +34,32 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
 
     const method = methodParam && isStatusMethod(methodParam) ? methodParam : undefined;
     const tweetDetailMode = method === "tweet-detail" && format === "simple" ? "parsed" : "raw";
-    const tweet = await extractStatusByMethod(url, method, {
+    const status = await extractStatusByMethod(url, method, {
       authTokens,
       simultaneousRequests: 2,
       tweetDetailMode,
     });
 
-    const response =
-      format === "simple"
-        ? await simplifyTweetWithQuoted(tweet, async (quotedUrl) => {
-            try {
-              return await extractStatusByMethod(quotedUrl, method, {
-                authTokens,
-                simultaneousRequests: 2,
-                tweetDetailMode,
-              });
-            } catch (error) {
-              if (error instanceof XExtractError) {
-                return null;
-              }
+    const resolveTweet = async (tweetUrl: string): Promise<JsonObject | null> => {
+      try {
+        const resolvedStatus = await extractStatusByMethod(tweetUrl, method, {
+          authTokens,
+          simultaneousRequests: 2,
+          tweetDetailMode,
+        });
 
-              throw error;
-            }
-          })
-        : tweet;
+        return isReplyChainResult(resolvedStatus) ? resolvedStatus.tweet : resolvedStatus;
+      } catch (error) {
+        if (error instanceof XExtractError) {
+          return null;
+        }
+
+        throw error;
+      }
+    };
+
+    const response =
+      format === "simple" ? await simplifyStatusResponse(status, resolveTweet) : status;
     return c.json(response);
   } catch (error) {
     if (error instanceof XExtractError) {
