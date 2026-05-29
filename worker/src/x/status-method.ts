@@ -53,7 +53,6 @@ export async function extractStatusByMethod(
       if (tweetDetailMode === "parsed") {
         return extractStatusV2TweetDetail(input, authTokens, {simultaneousRequests});
       }
-
       return extractStatusV2TweetDetailRaw(input, authTokens, {simultaneousRequests});
     case "syndication":
       return extractStatusSyndication(input);
