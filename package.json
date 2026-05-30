@@ -1,0 +1,44 @@
+{
+  "name": "freebird",
+  "version": "1.0.0",
+  "description": "A tool for fetching full X post data by reusing the bearer tokens embedded in Twitter's own web, mobile, and Android clients.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "typecheck": "npm run typecheck --prefix worker",
+    "lint": "eslint worker/src",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarasovcad/freebird.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarasovcad/freebird/issues"
+  },
+  "homepage": "https://github.com/tarasovcad/freebird#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3"
+  },
+  "lint-staged": {
+    "worker/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}
