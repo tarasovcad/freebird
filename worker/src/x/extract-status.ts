@@ -47,12 +47,17 @@ export async function extractStatus(
       logStatusMethod(attempt.method);
       const tweet = await attempt.fetch();
       if (hasLegacyTweet(tweet)) {
+        console.log(`${attempt.method} method succeeded`);
         return addReplyContextIfNeeded(input, tweet, options);
       }
 
+      console.log(`${attempt.method} method returned unexpected response, trying next...`);
       lastError = new XExtractError(502, "upstream_error", "Unexpected response from X.");
     } catch (error) {
       if (error instanceof XExtractError) {
+        console.log(
+          `${attempt.method} method failed (${error.code} ${error.kind}): ${error.message}`,
+        );
         lastError = error;
         continue;
       }
@@ -64,9 +69,12 @@ export async function extractStatus(
   // It's not in attempts because it doesn't return a legacy GraphQL shape.
   try {
     logStatusMethod("syndication");
-    return await extractStatusSyndication(input);
+    const result = await extractStatusSyndication(input);
+    console.log("syndication method succeeded");
+    return result;
   } catch (error) {
     if (error instanceof XExtractError) {
+      console.log(`syndication method failed (${error.code} ${error.kind}): ${error.message}`);
       lastError = error;
     } else {
       throw error;
