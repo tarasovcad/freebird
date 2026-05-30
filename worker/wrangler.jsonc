@@ -21,6 +21,9 @@
 
   "account_id": "349d1bc326ebd8f64abfe827fa61ade4",
   "routes": [{"pattern": "freebird-api.com/*", "zone_name": "freebird-api.com"}],
+  "assets": {
+    "directory": "./public",
+  },
   "workers_dev": false,
 
   "ratelimits": [
