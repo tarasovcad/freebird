@@ -22,4 +22,23 @@
   "account_id": "349d1bc326ebd8f64abfe827fa61ade4",
   "routes": [{"pattern": "freebird-api.com/*", "zone_name": "freebird-api.com"}],
   "workers_dev": false,
+
+  "ratelimits": [
+    {
+      "name": "RATE_LIMIT_BURST",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 10,
+        "period": 10,
+      },
+    },
+    {
+      "name": "RATE_LIMIT_PER_IP",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 30,
+        "period": 60,
+      },
+    },
+  ],
 }
