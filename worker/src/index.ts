@@ -17,19 +17,19 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
   const formatParam = c.req.param("format") || c.req.query("format");
 
   if (!url) {
-    return c.json({error: "Missing url parameter"}, 400);
+    return c.json({error: "Missing url parameter.", kind: "invalid_input"}, 400);
   }
 
   try {
     const authTokens = parseWorkaroundTokens(c.env.VXTWITTER_WORKAROUND_TOKENS);
 
     if (methodParam && !isStatusMethod(methodParam)) {
-      return c.json({error: "Invalid method parameter"}, 400);
+      return c.json({error: "Invalid method parameter.", kind: "invalid_input"}, 400);
     }
 
     const format = parseResponseFormat(formatParam);
     if (!format) {
-      return c.json({error: "Invalid format parameter"}, 400);
+      return c.json({error: "Invalid format parameter.", kind: "invalid_input"}, 400);
     }
 
     const method = methodParam && isStatusMethod(methodParam) ? methodParam : undefined;
@@ -63,10 +63,10 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
     return c.json(response);
   } catch (error) {
     if (error instanceof XExtractError) {
-      return c.json({error: error.message, code: error.code}, 400);
+      return c.json({error: error.message, kind: error.kind}, error.code);
     }
 
-    return c.json({error: "Internal server error"}, 500);
+    return c.json({error: "Internal server error.", kind: "upstream_error"}, 500);
   }
 };
 

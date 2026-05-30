@@ -12,7 +12,7 @@ export async function extractStatusSyndication(input: string): Promise<JsonObjec
   const response = await fetch(`${SYNDICATION_URL}?id=${tweetId}&token=${token}`);
 
   if (response.status === 404) {
-    throw new XExtractError(404, "Tweet not found");
+    throw new XExtractError(404, "not_found", "Tweet not found.");
   }
 
   const output = await readJsonObject(response);
@@ -28,7 +28,7 @@ export async function extractStatusSyndication(input: string): Promise<JsonObjec
 async function readJsonObject(response: Response): Promise<JsonObject> {
   return response.json().then((body: unknown) => {
     if (!isJsonObject(body)) {
-      throw new XExtractError(400, "Extract error");
+      throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
     }
 
     return body;
@@ -39,13 +39,13 @@ function getSyndicationError(errors: unknown): XExtractError {
   if (Array.isArray(errors) && errors.length > 0) {
     const first = errors[0];
     if (isJsonObject(first)) {
-      const code = typeof first.code === "number" ? first.code : 400;
-      const message = typeof first.message === "string" ? first.message : "Extract error";
-      return new XExtractError(code, message);
+      const message =
+        typeof first.message === "string" ? first.message : "Unexpected response from X.";
+      return new XExtractError(502, "upstream_error", message);
     }
   }
 
-  return new XExtractError(400, "Extract error");
+  return new XExtractError(502, "upstream_error", "Unexpected response from X.");
 }
 
 function normalizeSyndicationTweet(output: JsonObject): void {

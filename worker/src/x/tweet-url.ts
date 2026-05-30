@@ -14,7 +14,7 @@ const TWEET_URL_PATTERN = /(?:^|\/)@?\w{1,15}\/(?:status|statuses)\/(\d{2,20})(?
  *   - X/Twitter post URLs in common forms
  *
  * Throws:
- *   - TwExtractError if unable to extract a valid tweet ID
+ *   - XExtractError if unable to extract a valid tweet ID
  */
 export function parseTweetId(input: string): string {
   const trimmed = input.trim();
@@ -31,5 +31,5 @@ export function parseTweetId(input: string): string {
   }
 
   // Fallback: unable to extract
-  throw new XExtractError(400, "Extract error: could not parse tweet ID from input");
+  throw new XExtractError(400, "invalid_input", "Could not parse a tweet ID from the given input.");
 }

@@ -25,7 +25,7 @@ export async function extractStatusV2Android(
   const tokens = shuffleWorkaroundTokens(authTokens);
 
   if (tokens.length === 0) {
-    throw new XExtractError(400, "Extract error (no tokens defined)");
+    throw new XExtractError(401, "unauthorized", "No auth tokens configured.");
   }
 
   const simultaneousRequests = normalizeSimultaneousRequests(options.simultaneousRequests);
@@ -49,12 +49,12 @@ async function fetchConversationTimelineV2(
   });
 
   if (response.status === 429) {
-    throw new XExtractError(400, "Extract error: rate limit reached");
+    throw new XExtractError(429, "rate_limited", "X rate limit reached. Try again later.");
   }
 
   const output = await readJsonObject(response);
   if ("errors" in output) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return parseConversationTimelineV2(output, tweetId);
@@ -84,7 +84,7 @@ function buildConversationTimelineV2Url(tweetId: string): string {
 async function readJsonObject(response: Response): Promise<JsonObject> {
   const body: unknown = await response.json();
   if (!isJsonObject(body)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return body;
@@ -93,17 +93,17 @@ async function readJsonObject(response: Response): Promise<JsonObject> {
 function parseConversationTimelineV2(output: JsonObject, tweetId: string): JsonObject {
   const data = output.data;
   if (!isJsonObject(data)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const timelineResponse = data.timeline_response;
   if (!isJsonObject(timelineResponse)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const instructions = timelineResponse.instructions;
   if (!Array.isArray(instructions)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const entries = getTimelineEntries(instructions);
@@ -132,7 +132,7 @@ function getTimelineEntries(instructions: unknown[]): unknown[] {
     }
   }
 
-  throw new XExtractError(400, "Extract error");
+  throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
 }
 
 function getTimelineEntryTweet(entry: unknown): JsonObject | null {

@@ -17,7 +17,7 @@ export async function fetchWithTokenAttempts<T>(
     }
   }
 
-  throw lastError ?? new XExtractError(400, "Extract error");
+  throw lastError ?? new XExtractError(502, "upstream_error", "All token attempts failed.");
 }
 
 export function normalizeSimultaneousRequests(value: number | undefined): number {

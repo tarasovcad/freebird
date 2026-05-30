@@ -42,13 +42,13 @@ async function fetchTweetResultByRestId(
   });
 
   if (response.status === 429) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(429, "rate_limited", "X rate limit reached. Try again later.");
   }
 
   const output = await readJsonObject(response);
 
   if ("errors" in output) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const tweet = parseTweetResultByRestId(output, tweetId);
@@ -80,7 +80,7 @@ function buildTweetResultByRestIdUrl(tweetId: string): string {
 async function readJsonObject(response: Response): Promise<JsonObject> {
   const body: unknown = await response.json();
   if (!isJsonObject(body)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return body;
@@ -89,17 +89,17 @@ async function readJsonObject(response: Response): Promise<JsonObject> {
 function parseTweetResultByRestId(output: JsonObject, tweetId: string): JsonObject {
   const data = output.data;
   if (!isJsonObject(data)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const tweetResult = data.tweetResult;
   if (!isJsonObject(tweetResult)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const result = unwrapTweetResult(tweetResult.result);
   if (result.rest_id !== tweetId) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return result;
@@ -107,7 +107,7 @@ function parseTweetResultByRestId(output: JsonObject, tweetId: string): JsonObje
 
 function unwrapTweetResult(result: unknown): JsonObject {
   if (!isJsonObject(result)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   if (result.__typename === "TweetWithVisibilityResults") {
@@ -118,8 +118,8 @@ function unwrapTweetResult(result: unknown): JsonObject {
   }
 
   if (result.__typename === "TweetUnavailable") {
-    const reason = typeof result.reason === "string" ? `: ${result.reason}` : "";
-    throw new XExtractError(400, `Extract error${reason}`);
+    const reason = typeof result.reason === "string" ? result.reason : "Tweet is unavailable.";
+    throw new XExtractError(404, "not_found", reason);
   }
 
   return result;
@@ -139,6 +139,6 @@ function flattenLegacyCard(tweet: JsonObject): void {
 
 function requireLegacyTweet(tweet: JsonObject): void {
   if (!isJsonObject(tweet.legacy)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 }

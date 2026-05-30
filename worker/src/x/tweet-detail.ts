@@ -65,7 +65,7 @@ function getTweetDetailTokens(authTokens: readonly string[]): string[] {
   const tokens = shuffleWorkaroundTokens(authTokens);
 
   if (tokens.length === 0) {
-    throw new XExtractError(400, "Extract error (no tokens defined)");
+    throw new XExtractError(401, "unauthorized", "No auth tokens configured.");
   }
 
   return tokens;
@@ -77,12 +77,12 @@ async function fetchTweetDetail(tweetId: string, authToken: string): Promise<Jso
   });
 
   if (response.status === 429) {
-    throw new XExtractError(400, "Extract error: rate limit reached");
+    throw new XExtractError(429, "rate_limited", "X rate limit reached. Try again later.");
   }
 
   const output = await readJsonObject(response);
   if ("errors" in output) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return output;
@@ -111,7 +111,7 @@ function buildTweetDetailUrl(tweetId: string): string {
 async function readJsonObject(response: Response): Promise<JsonObject> {
   const body: unknown = await response.json();
   if (!isJsonObject(body)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return body;
@@ -166,17 +166,17 @@ export function parseTweetDetailChain(
 function collectTweetDetailTweets(output: JsonObject): JsonObject[] {
   const data = output.data;
   if (!isJsonObject(data)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const conversation = data.threaded_conversation_with_injections_v2;
   if (!isJsonObject(conversation)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const instructions = conversation.instructions;
   if (!Array.isArray(instructions)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const entries = getTimelineEntries(instructions);
@@ -211,7 +211,7 @@ function getTimelineEntries(instructions: unknown[]): unknown[] {
   }
 
   if (timelineEntries.length === 0) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return timelineEntries;

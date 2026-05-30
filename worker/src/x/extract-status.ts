@@ -50,7 +50,7 @@ export async function extractStatus(
         return addReplyContextIfNeeded(input, tweet, options);
       }
 
-      lastError = new XExtractError(400, "Extract error");
+      lastError = new XExtractError(502, "upstream_error", "Unexpected response from X.");
     } catch (error) {
       if (error instanceof XExtractError) {
         lastError = error;
@@ -73,7 +73,7 @@ export async function extractStatus(
     }
   }
 
-  throw lastError ?? new XExtractError(400, "Extract error");
+  throw lastError ?? new XExtractError(502, "upstream_error", "All extraction methods failed.");
 }
 
 async function addReplyContextIfNeeded(

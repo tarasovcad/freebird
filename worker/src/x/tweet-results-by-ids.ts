@@ -20,7 +20,7 @@ export async function extractStatusV2(
   const tokens = shuffleWorkaroundTokens(authTokens);
 
   if (tokens.length === 0) {
-    throw new XExtractError(400, "Extract error (no tokens defined)");
+    throw new XExtractError(401, "unauthorized", "No auth tokens configured.");
   }
 
   const simultaneousRequests = normalizeSimultaneousRequests(options.simultaneousRequests);
@@ -35,12 +35,12 @@ async function fetchTweetResultsByIds(tweetId: string, authToken: string): Promi
   });
 
   if (response.status === 429) {
-    throw new XExtractError(400, "Extract error: rate limit reached");
+    throw new XExtractError(429, "rate_limited", "X rate limit reached. Try again later.");
   }
 
   const output = await readJsonObject(response);
   if ("errors" in output) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return parseTweetResultsByIds(output, tweetId);
@@ -68,7 +68,7 @@ function buildTweetResultsByIdsUrl(tweetId: string): string {
 async function readJsonObject(response: Response): Promise<JsonObject> {
   const body: unknown = await response.json();
   if (!isJsonObject(body)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   return body;
@@ -77,12 +77,12 @@ async function readJsonObject(response: Response): Promise<JsonObject> {
 function parseTweetResultsByIds(output: JsonObject, tweetId: string): JsonObject {
   const data = output.data;
   if (!isJsonObject(data)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   const entries = data.tweet_results;
   if (!Array.isArray(entries)) {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Unexpected response from X.");
   }
 
   for (const entry of entries) {

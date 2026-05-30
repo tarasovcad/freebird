@@ -43,7 +43,7 @@ export async function extractStatusByMethod(
       return extractStatusV2Rest(input, []);
     case "rest-auth":
       if (authTokens.length === 0) {
-        throw new XExtractError(400, "Extract error (no tokens defined)");
+        throw new XExtractError(401, "unauthorized", "No auth tokens configured.");
       }
       logStatusMethod("rest-auth");
       return extractStatusV2Rest(input, authTokens);
@@ -63,7 +63,7 @@ export async function extractStatusByMethod(
       logStatusMethod("syndication");
       return extractStatusSyndication(input);
     default:
-      throw new XExtractError(400, "Invalid method query parameter");
+      throw new XExtractError(400, "invalid_input", "Invalid method query parameter.");
   }
 }
 

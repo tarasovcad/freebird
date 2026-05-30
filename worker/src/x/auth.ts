@@ -95,7 +95,7 @@ async function fetchGuestToken(): Promise<string> {
 
   const body: unknown = await activateResponse.json();
   if (!isJsonObject(body) || typeof body.guest_token !== "string") {
-    throw new XExtractError(400, "Extract error");
+    throw new XExtractError(502, "upstream_error", "Failed to obtain a guest token from X.");
   }
 
   return body.guest_token;
