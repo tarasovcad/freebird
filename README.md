@@ -1,3 +1,5 @@
+<img src="./public/logo.svg" alt="Freebird logo" width="64" />
+
 # Freebird
 
 A tool for fetching full X post data by reusing the bearer tokens embedded in Twitter's own web, mobile, and Android clients.

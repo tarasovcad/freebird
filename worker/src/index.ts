@@ -159,6 +159,8 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
   }
 };
 
+app.get("/favicon.ico", (c) => c.redirect("/favicon.svg", 301));
+
 app.get("/status", statusHandler);
 app.get("/status/:url", statusHandler);
 app.get("/status/:url/format/:format", statusHandler);
