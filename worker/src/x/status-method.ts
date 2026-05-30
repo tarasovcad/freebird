@@ -39,24 +39,34 @@ export async function extractStatusByMethod(
     case undefined:
       return extractStatus(input, {authTokens, simultaneousRequests});
     case "rest-guest":
+      logStatusMethod("rest-guest");
       return extractStatusV2Rest(input, []);
     case "rest-auth":
       if (authTokens.length === 0) {
         throw new XExtractError(400, "Extract error (no tokens defined)");
       }
+      logStatusMethod("rest-auth");
       return extractStatusV2Rest(input, authTokens);
     case "v2":
+      logStatusMethod("v2");
       return extractStatusV2(input, authTokens, {simultaneousRequests});
     case "android":
+      logStatusMethod("android");
       return extractStatusV2Android(input, authTokens, {simultaneousRequests});
     case "tweet-detail":
+      logStatusMethod("tweet-detail");
       if (tweetDetailMode === "parsed") {
         return extractStatusV2TweetDetail(input, authTokens, {simultaneousRequests});
       }
       return extractStatusV2TweetDetailRaw(input, authTokens, {simultaneousRequests});
     case "syndication":
+      logStatusMethod("syndication");
       return extractStatusSyndication(input);
     default:
       throw new XExtractError(400, "Invalid method query parameter");
   }
+}
+
+function logStatusMethod(method: StatusMethod): void {
+  console.log(`fetching status using ${method} method`);
 }

@@ -12,6 +12,7 @@ import {
 } from "./tweet-detail";
 import {extractStatusV2} from "./tweet-results-by-ids";
 import type {JsonObject} from "./types";
+import type {StatusMethod} from "./status-method";
 
 type ExtractStatusOptions = {
   authTokens?: readonly string[];
@@ -25,19 +26,26 @@ export async function extractStatus(
   const authTokens = options.authTokens ?? [];
   const simultaneousRequests = options.simultaneousRequests;
 
-  const attempts: Array<() => Promise<JsonObject>> = [
-    () => extractStatusV2Rest(input, []),
-    () => extractStatusV2(input, authTokens, {simultaneousRequests}),
-    () => extractStatusV2Rest(input, authTokens),
-    () => extractStatusV2Android(input, authTokens, {simultaneousRequests}),
-    () => extractStatusV2TweetDetail(input, authTokens, {simultaneousRequests}),
+  const attempts: Array<{method: StatusMethod; fetch: () => Promise<JsonObject>}> = [
+    {method: "rest-guest", fetch: () => extractStatusV2Rest(input, [])},
+    {method: "v2", fetch: () => extractStatusV2(input, authTokens, {simultaneousRequests})},
+    {method: "rest-auth", fetch: () => extractStatusV2Rest(input, authTokens)},
+    {
+      method: "android",
+      fetch: () => extractStatusV2Android(input, authTokens, {simultaneousRequests}),
+    },
+    {
+      method: "tweet-detail",
+      fetch: () => extractStatusV2TweetDetail(input, authTokens, {simultaneousRequests}),
+    },
   ];
 
   let lastError: XExtractError | null = null;
 
   for (const attempt of attempts) {
     try {
-      const tweet = await attempt();
+      logStatusMethod(attempt.method);
+      const tweet = await attempt.fetch();
       if (hasLegacyTweet(tweet)) {
         return addReplyContextIfNeeded(input, tweet, options);
       }
@@ -55,6 +63,7 @@ export async function extractStatus(
   //  FALLBACK: if all attempts fail - we use the syndication endpoint as a last resort, since it doesn't require auth tokens and can still provide data for some tweets
   // It's not in attempts because it doesn't return a legacy GraphQL shape.
   try {
+    logStatusMethod("syndication");
     return await extractStatusSyndication(input);
   } catch (error) {
     if (error instanceof XExtractError) {
@@ -109,4 +118,8 @@ function normalizeReplyChainResult(result: ReplyChainResult): ReplyChainResult {
     tweet: fixTweetData(result.tweet),
     reply_chain: result.reply_chain.map((tweet) => fixTweetData(tweet)),
   };
+}
+
+function logStatusMethod(method: StatusMethod): void {
+  console.log(`fetching status using ${method} method`);
 }

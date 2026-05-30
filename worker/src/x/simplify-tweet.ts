@@ -37,7 +37,7 @@ type SimplifiedTweet = {
 
 type SimplifiedPost = {
   allSameType: boolean;
-  article: null;
+  article: JsonObject | null;
   combinedMediaUrl: null;
   communityNote: null;
   conversationID: string | null;
@@ -74,15 +74,24 @@ type SimplifiedMetrics = {
   retweets: number | null;
 };
 
+type UserVerification = {
+  verified_type: string | null;
+};
+
 type SimplifiedUser = {
   user_name: string | null;
   user_profile_image_url: string | null;
   user_screen_name: string | null;
   is_blue_verified: boolean | null;
+  verification: UserVerification;
   affiliates_highlighted_label: AffiliateLabel | null;
 };
 
-type SimplifiedQuotedTweet = SimplifiedPost & SimplifiedMetrics & SimplifiedUser;
+type SimplifiedQuotedTweet = {
+  post: SimplifiedPost;
+  metrics: SimplifiedMetrics;
+  user: SimplifiedUser;
+};
 
 type AffiliateLabel = {
   badge_url: string | null;
@@ -153,7 +162,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
   const simplified: SimplifiedTweet = {
     post: {
       allSameType,
-      article: null,
+      article: getArticle(tweet),
       combinedMediaUrl: null,
       communityNote: null,
       conversationID: getString(legacy.conversation_id_str) ?? getString(tweet.conversation_id_str),
@@ -194,6 +203,9 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
       user_profile_image_url: user ? getAvatarUrl(user, tweet) : null,
       user_screen_name: userScreenName,
       is_blue_verified: getBlueVerified(tweet),
+      verification: {
+        verified_type: getVerificationVerifiedType(tweet),
+      },
       affiliates_highlighted_label: getAffiliateLabel(tweet),
     },
   };
@@ -203,15 +215,30 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
 
 function flattenQuotedTweet(tweet: SimplifiedTweet): SimplifiedQuotedTweet {
   return {
-    ...tweet.post,
-    ...tweet.metrics,
-    ...tweet.user,
+    post: tweet.post,
+    metrics: tweet.metrics,
+    user: tweet.user,
   };
 }
 
 function getLegacyTweet(tweet: JsonObject): JsonObject {
   const legacy = tweet.legacy;
   return isJsonObject(legacy) ? legacy : tweet;
+}
+
+function getArticle(tweet: JsonObject): JsonObject | null {
+  const article = tweet.article;
+  if (!isJsonObject(article)) {
+    return null;
+  }
+
+  const articleResults = article.article_results;
+  if (!isJsonObject(articleResults)) {
+    return article;
+  }
+
+  const result = articleResults.result;
+  return isJsonObject(result) ? result : article;
 }
 
 function getUser(tweet: JsonObject): JsonObject | null {
@@ -269,6 +296,20 @@ function getBlueVerified(tweet: JsonObject): boolean | null {
   }
 
   return getBoolean(result.is_blue_verified);
+}
+
+function getVerificationVerifiedType(tweet: JsonObject): string | null {
+  const result = getUserResult(tweet);
+  if (!result) {
+    return null;
+  }
+
+  const verification = result.verification;
+  if (!isJsonObject(verification)) {
+    return null;
+  }
+
+  return getString(verification.verified_type);
 }
 
 function getAffiliateLabel(tweet: JsonObject): AffiliateLabel | null {
@@ -382,10 +423,24 @@ function getTweetText(tweet: JsonObject, legacy: JsonObject): string | null {
     return null;
   }
 
+  text = removeReplyPrefix(text, getDisplayTextRange(legacy));
   text = expandTextUrls(text, getUrlEntities(legacy, noteTweet));
   text = removeMediaTextUrls(text, getMediaList(legacy));
 
   return text.trimEnd();
+}
+
+function removeReplyPrefix(text: string, displayTextRange: [number, number] | null): string {
+  if (!displayTextRange) {
+    return text;
+  }
+
+  const [start] = displayTextRange;
+  if (start <= 0) {
+    return text;
+  }
+
+  return text.slice(start);
 }
 
 function getNoteTweet(tweet: JsonObject): JsonObject | null {
