@@ -7,7 +7,9 @@ export async function simplifyStatusResponse(
   resolveTweet: (url: string) => Promise<JsonObject | null>,
 ): Promise<JsonObject> {
   if (!isReplyChainResult(status)) {
-    return simplifyTweetWithResolvedTweets(status, resolveTweet);
+    return {
+      tweet: await simplifyTweetWithResolvedTweets(status, resolveTweet),
+    };
   }
 
   return {

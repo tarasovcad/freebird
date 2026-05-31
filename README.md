@@ -1,4 +1,4 @@
-<img src="./public/logo.svg" alt="Freebird logo" width="64" />
+<img src="./public/logo.svg" alt="Freebird logo" width="72" />
 
 # Freebird
 

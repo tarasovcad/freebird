@@ -1,0 +1,3404 @@
+{
+  "tweet": {
+    "post": {
+      "allSameType": true,
+      "article": {
+        "content_state": {
+          "blocks": [
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [
+                {
+                  "length": 86,
+                  "offset": 0,
+                  "style": "Italic"
+                }
+              ],
+              "key": "b9dqa",
+              "text": "Most people are still using Claude like a smarter chatbot\nThat is not the game anymore",
+              "type": "blockquote"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 0,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "391p",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9pete",
+              "text": "You’re competing against people who treat Claude like an operating system",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fgs0j",
+              "text": "> While you’re typing one-off prompts, someone else is stacking specialized skills, connecting APIs, and building an automated workflow factory that works 24/7",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "6vq7q",
+              "text": "Knowledge of a custom stack separates a $95K developer from a $300K AI architect. I searched the entire Claude skills ecosystem so you don't have to. These are the only repositories that matter right now",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 1,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "ffk1s",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 2,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "bd30t",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "5j4cm",
+              "text": "Where the ecosystem actually lives",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3k27r",
+              "text": "The Claude skills ecosystem is spread across several hubs, not one dominant source.",
+              "type": "unstyled"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 33,
+                    "text": "github.com/anthropics/skills",
+                    "toIndex": 61
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "e8nm3",
+              "text": "Anthropic official skills repo - github.com/anthropics/skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 49,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 88
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "26q08",
+              "text": "Alireza Rezvani's large cross-platform library - github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 25,
+                    "text": "github.com/travisvn/awesome-claude-skills",
+                    "toIndex": 66
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9cce3",
+              "text": "Travis VN curated list - github.com/travisvn/awesome-claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 24,
+                    "text": "github.com/BehiSecc/awesome-claude-skills",
+                    "toIndex": 65
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4pfte",
+              "text": "BehiSecc curated list - github.com/BehiSecc/awesome-claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 29,
+                    "text": "github.com/jezweb/claude-skills",
+                    "toIndex": 60
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "a4ict",
+              "text": "Jezweb workflow-heavy repo - github.com/jezweb/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 35,
+                    "text": "github.com/yusufkaraaslan/Skill_Seekers",
+                    "toIndex": 74
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1crbc",
+              "text": "Skill_Seekers by Yusuf Karaaslan - github.com/yusufkaraaslan/Skill_Seekers",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 35,
+                    "text": "github.com/majiayu000/claude-skill-registry",
+                    "toIndex": 78
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4v7dk",
+              "text": "Majiayu000 Claude skill registry - github.com/majiayu000/claude-skill-registry",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 43,
+                    "text": "github.com/VoltAgent/awesome-agent-skills",
+                    "toIndex": 84
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "c44vu",
+              "text": "VoltAgent's broad cross-agent collection - github.com/VoltAgent/awesome-agent-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 35,
+                    "text": "github.com/aradotso/trending-skills",
+                    "toIndex": 70
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bh6r8",
+              "text": "Aradotso trending skills tracker - github.com/aradotso/trending-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 3,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "6ff0f",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3dsqc",
+              "text": "Official Anthropic skills",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 4,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "1bb2q",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3m9o9",
+              "text": "These matter because they show the cleanest canonical structure for how skills are supposed to work",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 5,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "5g34d",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8m4sr",
+              "text": "1. doc-coauthoring",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "15nc4",
+              "text": "This official skill walks Claude through context gathering, iterative refinement, and reader testing using a fresh Claude session.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3mhom",
+              "text": "Why it matters: it turns writing into a workflow instead of a one-shot prompt.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md",
+                    "toIndex": 83
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4svpk",
+              "text": "Direct link: github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bu8rl",
+              "text": "2. skill-creator",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "970ov",
+              "text": "Anthropic also has its own skill for helping Claude build new skills in the right format.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "71qb",
+              "text": "Why it matters: it gives you a canonical starting point for creating your own internal skills.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md",
+                    "toIndex": 81
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "btsrr",
+              "text": "Direct link: github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "86ugq",
+              "text": "3. frontend-design",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9aogb",
+              "text": "A focused official skill for frontend design workflows and design-oriented implementation structure.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "aautf",
+              "text": "Why it matters: useful when you want Claude to think in interface systems, not random UI fragments.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md",
+                    "toIndex": 83
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "b51hj",
+              "text": "Direct link: github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2bvbr",
+              "text": "4. docx",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "149uk",
+              "text": "One of the most practical official skills if your workflow touches Word documents or structured business docs.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8krde",
+              "text": "Why it matters: it teaches Claude how to unpack, edit and repack DOCX files reliably.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/anthropics/skills/blob/main/skills/docx/SKILL.md",
+                    "toIndex": 72
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "945cj",
+              "text": "Direct link: github.com/anthropics/skills/blob/main/skills/docx/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 6,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "2oi0d",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "a7on3",
+              "text": "Alireza Rezvani - the giant ecosystem play",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 7,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "1rkq",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "6dh7o",
+              "text": "This repo stands out because it packages hundreds of skills and tools into one broad operating layer for Claude-compatible agents.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 8,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "bm85b",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "63r1f",
+              "text": "5. skill-security-auditor",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "80uvu",
+              "text": "A very 2026 idea - using one skill to inspect other skills before you trust them.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "b2iqs",
+              "text": "Why it matters: the skill economy is growing fast, so security review is now part of the workflow.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "b2fth",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1doce",
+              "text": "6. self-improving-agent",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7hijh",
+              "text": "This is the kind of skill that pushes Claude closer to a persistent operator model.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "aetv3",
+              "text": "Why it matters: the system starts improving its own process instead of just solving isolated tasks.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bj235",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "6s6fr",
+              "text": "7. mcp-server-builder",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1p496",
+              "text": "MCP is now a real layer of the ecosystem, and this skill teaches Claude how to build for it.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "47oh1",
+              "text": "Why it matters: better external integrations, less brittle glue code.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1pjg7",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "96q8l",
+              "text": "8. rag-architect",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "50p6c",
+              "text": "One of the more valuable patterns in serious agent workflows.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fpm32",
+              "text": "Why it matters: retrieval quality often matters more than raw model cleverness.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "dfi15",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "a18fv",
+              "text": "9. observability-designer",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "5oaq7",
+              "text": "This is where Claude starts thinking like infra people think.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2fngq",
+              "text": "Why it matters: SLOs, dashboards, alerts and tracing logic become part of the design process.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "88ipi",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 9,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "a1s5m",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4omu",
+              "text": "10. performance-profiler",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1e6i0",
+              "text": "AI coding is often weak at performance unless pushed into that mindset directly.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9dof7",
+              "text": "Why it matters: teaches Claude to care about bottlenecks, not just features.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "6n7oe",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fkibi",
+              "text": "11. release-manager",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "eu1ll",
+              "text": "A surprisingly useful operational skill.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "313qn",
+              "text": "Why it matters: release discipline is part of product quality, not an afterthought.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "b9m68",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1krko",
+              "text": "12. tech-debt-tracker",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "buqfc",
+              "text": "Most AI workflows pretend every codebase is clean. This one does not.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "161rr",
+              "text": "Why it matters: it makes Claude reason about debt, prioritization and long-term maintenance.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "25egh",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4rkrc",
+              "text": "13. capture",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "32r4c",
+              "text": "A deceptively simple skill that turns loose ideas into structured action.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "aqp9h",
+              "text": "Why it matters: useful as part of a daily AI operating system.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bt5v0",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "5ldb1",
+              "text": "14. reflect",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7djfk",
+              "text": "The opposite of raw output velocity - this one is about review, synthesis and better judgment.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3rhut",
+              "text": "Why it matters: good systems need reflection loops, not just execution loops.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "126uc",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bgao2",
+              "text": "15. email",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "d78hv",
+              "text": "Email triage sounds boring until you realize how much of real work is trapped there.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8di4g",
+              "text": "Why it matters: inbox workflows are one of the easiest ways to make Claude feel actually useful day to day.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/alirezarezvani/claude-skills",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2jek3",
+              "text": "Repo link: github.com/alirezarezvani/claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 10,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "5lj5o",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 11,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "6tsev",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "cv160",
+              "text": "Jezweb - practical workflow skills",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 12,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "3svbs",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "c187g",
+              "text": "Jezweb's repo is interesting because it is less about hype and more about repeatable deliverables.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "e2gc0",
+              "text": "16. app-docs",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7golf",
+              "text": "This skill browses a running app, takes screenshots, and produces proper documentation with steps and visuals.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8s22n",
+              "text": "Why it matters: it documents what exists, not what you hope exists.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/jezweb/claude-skills/blob/main/plugins/dev-tools/skills/app-docs/SKILL.md",
+                    "toIndex": 97
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "45q4n",
+              "text": "Direct link: github.com/jezweb/claude-skills/blob/main/plugins/dev-tools/skills/app-docs/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 13,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "d4k8i",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "e2s3s",
+              "text": "Yusuf Karaaslan",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 14,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "530bh",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2pns3",
+              "text": "17. Skill_Seekers",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8mjap",
+              "text": "One of the smartest leverage plays in the whole ecosystem: convert arbitrary docs into reusable skill memory.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "erdd4",
+              "text": "Why it matters: you stop repeating context and start packaging expertise.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/yusufkaraaslan/Skill_Seekers",
+                    "toIndex": 52
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fsjhg",
+              "text": "Direct link: github.com/yusufkaraaslan/Skill_Seekers",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 15,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "fgap",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 16,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "7ggbp",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bhgoq",
+              "text": "Majiayu000 registry",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 17,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "3tl06",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4hj2f",
+              "text": "This repo is valuable because it shows how weird and specific skills can get.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9r0fk",
+              "text": "18. enhancing-authors",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "77oq0",
+              "text": "A narrow skill for enriching incomplete author profile data and related metadata fields.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "dm8r9",
+              "text": "Why it matters: proof that skills are tiny workflow brains, not just coding add-ons.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/majiayu000/claude-skill-registry/blob/main/skills/other/other/enhancing-authors/SKILL.md",
+                    "toIndex": 112
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "25vt0",
+              "text": "Direct link: github.com/majiayu000/claude-skill-registry/blob/main/skills/other/other/enhancing-authors/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 18,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "emd0e",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "avat1",
+              "text": "Composio - still worth using",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 19,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "6eb5j",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2s4ub",
+              "text": "Composio remains one of the strongest action-oriented ecosystems because it connects Claude to external services and workflows",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 20,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "92btj",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fk7bi",
+              "text": "19. connect-apps",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4706g",
+              "text": "This is one of the most practical skills in the whole space because it lets Claude take real actions across connected apps.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "84tak",
+              "text": "Why it matters: actual execution across Gmail, Slack, GitHub, Notion and more.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/ComposioHQ/awesome-codex-skills/blob/master/connect-apps/SKILL.md",
+                    "toIndex": 89
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "62cst",
+              "text": "Direct link: github.com/ComposioHQ/awesome-codex-skills/blob/master/connect-apps/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "guvl",
+              "text": "20. skill-creator",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "86p5n",
+              "text": "Composio also ships its own skill-creation workflow.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "cs6c4",
+              "text": "Why it matters: useful when you want a more ecosystem-specific packaging flow.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/skill-creator/SKILL.md",
+                    "toIndex": 91
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "559tt",
+              "text": "Direct link: github.com/ComposioHQ/awesome-claude-skills/blob/master/skill-creator/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2kora",
+              "text": "21. content-research-writer",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1lk4g",
+              "text": "A useful writing-oriented skill for research, outlines, citations and drafting support.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9bhvk",
+              "text": "Why it matters: less generic “write me a post”, more structured collaboration.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/content-research-writer/SKILL.md",
+                    "toIndex": 101
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "890c5",
+              "text": "Direct link: github.com/ComposioHQ/awesome-claude-skills/blob/master/content-research-writer/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "541a1",
+              "text": "22. file-organizer",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3loqc",
+              "text": "One of those surprisingly practical skills that becomes useful immediately.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fd30p",
+              "text": "Why it matters: helps Claude organize cluttered local file systems more intelligently.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/file-organizer/SKILL.md",
+                    "toIndex": 92
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4v2pg",
+              "text": "Direct link: github.com/ComposioHQ/awesome-claude-skills/blob/master/file-organizer/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "21t0h",
+              "text": "23. Apollo Automation",
+              "type": "header-two"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 44,
+                    "text": "Apollo.io",
+                    "toIndex": 53
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "eggb",
+              "text": "A more specific operational skill built for Apollo.io prospecting and lead enrichment workflows.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fipt9",
+              "text": "Why it matters: strong example of a vertical SaaS action skill.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/composio-skills/apollo-automation/SKILL.md",
+                    "toIndex": 111
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3neap",
+              "text": "Direct link: github.com/ComposioHQ/awesome-claude-skills/blob/master/composio-skills/apollo-automation/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 21,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "9uqgd",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "57p8s",
+              "text": "More direct-skill sources worth mining",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 22,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "2thvu",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2qqg6",
+              "text": "These are not all single direct SKILL.md pages in the current search results, but they are strong sources for installable skills and discovery",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 23,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "1g8nm",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "tod6",
+              "text": "24. artifacts-builder",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "5ih5v",
+              "text": "A front-end artifact generation skill highlighted in BehiSecc's curated collection.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3esj0",
+              "text": "Why it matters: pushes Claude toward polished HTML artifact output.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 18,
+                    "text": "github.com/BehiSecc/awesome-claude-skills",
+                    "toIndex": 59
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "al8al",
+              "text": "Discovery source: github.com/BehiSecc/awesome-claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "3r72l",
+              "text": "25. using-git-worktrees",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8ekqv",
+              "text": "A niche skill, but a very real productivity multiplier for parallel AI-assisted development.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8r7nv",
+              "text": "Why it matters: isolated git worktrees reduce branch chaos.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 18,
+                    "text": "github.com/BehiSecc/awesome-claude-skills",
+                    "toIndex": 59
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "au6k6",
+              "text": "Discovery source: github.com/BehiSecc/awesome-claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1udje",
+              "text": "26. aws-skills",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "26r57",
+              "text": "A specialized cloud workflow pack surfaced by curated lists.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2kdim",
+              "text": "Why it matters: cloud work benefits a lot from narrower, infrastructure-aware guidance.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 18,
+                    "text": "github.com/BehiSecc/awesome-claude-skills",
+                    "toIndex": 59
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1irqg",
+              "text": "Discovery source: github.com/BehiSecc/awesome-claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "du71p",
+              "text": "27. tapestry",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "aqs7d",
+              "text": "A knowledge-networking style skill for linking and summarizing related documents.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fbvm8",
+              "text": "Why it matters: better for research synthesis than flat note dumping.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 18,
+                    "text": "github.com/BehiSecc/awesome-claude-skills",
+                    "toIndex": 59
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "dvgp4",
+              "text": "Discovery source: github.com/BehiSecc/awesome-claude-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "flgor",
+              "text": "28. research-skill",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4g520",
+              "text": "A standalone repo focused on persistent project-scoped deep research memory.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4g047",
+              "text": "Why it matters: it survives compaction and keeps research findings alive across sessions.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/hec-ovi/research-skill",
+                    "toIndex": 46
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "91jos",
+              "text": "Direct link: github.com/hec-ovi/research-skill",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 24,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "6q9qm",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8ugk",
+              "text": "29. claude-deep-research-skill",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "aco0f",
+              "text": "Another standalone deep research repo with direct clone instructions for the Claude skills directory.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "37i96",
+              "text": "Why it matters: shows deep research is now its own serious category, not just a feature.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/199-biotechnologies/claude-deep-research-skill",
+                    "toIndex": 70
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "a1e48",
+              "text": "Direct link: github.com/199-biotechnologies/claude-deep-research-skill",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "fmd3",
+              "text": "30. wondelai skills",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "df6r3",
+              "text": "A 42-skill collection spanning UX, marketing, product strategy, sales, operations, virality, code quality and systems architecture.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "13e3a",
+              "text": "Why it matters: useful when you want broader business and product coverage, not only coding skills.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/wondelai/skills/blob/main/CLAUDE.md",
+                    "toIndex": 59
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9n7l1",
+              "text": "Direct link: github.com/wondelai/skills/blob/main/CLAUDE.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7pk16",
+              "text": "31. trending-skills",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "e69m",
+              "text": "A live discovery layer for skills that are actually gaining attention across the ecosystem.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bu81p",
+              "text": "Why it matters: this is one of the fastest ways to escape stale lists and find what is moving now.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/aradotso/trending-skills",
+                    "toIndex": 48
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "jaca",
+              "text": "Direct link: github.com/aradotso/trending-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "ppk0",
+              "text": "32. VoltAgent awesome-agent-skills",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8ars2",
+              "text": "One of the biggest cross-agent collections, not limited to Claude only.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "2e9ou",
+              "text": "Why it matters: useful if you want portable skills across Claude Code, Codex, Gemini CLI, Cursor and more.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 13,
+                    "text": "github.com/VoltAgent/awesome-agent-skills",
+                    "toIndex": 54
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "8aoa9",
+              "text": "Direct link: github.com/VoltAgent/awesome-agent-skills",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 25,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "4fe9d",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "1uc47",
+              "text": "Best “Jarvis” stacks",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 26,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "8rv75",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "v9rl",
+              "text": "The real power move is not installing random skills. It is combining layers.",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 27,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "4f98k",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "c0q0o",
+              "text": "Builder stack",
+              "type": "header-two"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 18,
+                    "text": "github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md",
+                    "toIndex": 88
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7catt",
+              "text": "doc-coauthoring - github.com/anthropics/skills/blob/main/skills/doc-coauthoring/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 11,
+                    "text": "github.com/jezweb/claude-skills/blob/main/plugins/dev-tools/skills/app-docs/SKILL.md",
+                    "toIndex": 95
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7ijcm",
+              "text": "app-docs - github.com/jezweb/claude-skills/blob/main/plugins/dev-tools/skills/app-docs/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 17,
+                    "text": "github.com/hec-ovi/research-skill",
+                    "toIndex": 50
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "77o7a",
+              "text": "research-skill - github.com/hec-ovi/research-skill",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 16,
+                    "text": "github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md",
+                    "toIndex": 84
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "p5le",
+              "text": "skill-creator - github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bf0hj",
+              "text": "Operator stack",
+              "type": "header-two"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 15,
+                    "text": "github.com/ComposioHQ/awesome-codex-skills/blob/master/connect-apps/SKILL.md",
+                    "toIndex": 91
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bsgjt",
+              "text": "connect-apps - github.com/ComposioHQ/awesome-codex-skills/blob/master/connect-apps/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 17,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/file-organizer/SKILL.md",
+                    "toIndex": 96
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "eomq3",
+              "text": "file-organizer - github.com/ComposioHQ/awesome-claude-skills/blob/master/file-organizer/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 29,
+                    "text": "github.com/199-biotechnologies/claude-deep-research-skill",
+                    "toIndex": 86
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "bud5b",
+              "text": "claude-deep-research-skill - github.com/199-biotechnologies/claude-deep-research-skill",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 20,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/composio-skills/apollo-automation/SKILL.md",
+                    "toIndex": 118
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "9dnuj",
+              "text": "Apollo Automation - github.com/ComposioHQ/awesome-claude-skills/blob/master/composio-skills/apollo-automation/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7lu11",
+              "text": "Knowledge stack",
+              "type": "header-two"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 16,
+                    "text": "github.com/yusufkaraaslan/Skill_Seekers",
+                    "toIndex": 55
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "7vjno",
+              "text": "Skill_Seekers - github.com/yusufkaraaslan/Skill_Seekers",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 20,
+                    "text": "github.com/majiayu000/claude-skill-registry/blob/main/skills/other/other/enhancing-authors/SKILL.md",
+                    "toIndex": 119
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "dflkg",
+              "text": "enhancing-authors - github.com/majiayu000/claude-skill-registry/blob/main/skills/other/other/enhancing-authors/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 26,
+                    "text": "github.com/ComposioHQ/awesome-claude-skills/blob/master/content-research-writer/SKILL.md",
+                    "toIndex": 114
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "dvm9d",
+              "text": "content-research-writer - github.com/ComposioHQ/awesome-claude-skills/blob/master/content-research-writer/SKILL.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "urls": [
+                  {
+                    "fromIndex": 18,
+                    "text": "github.com/wondelai/skills/blob/main/CLAUDE.md",
+                    "toIndex": 64
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "d9a0m",
+              "text": "wondelai skills - github.com/wondelai/skills/blob/main/CLAUDE.md",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 28,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "6c9ih",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "74and",
+              "text": "Final take",
+              "type": "header-one"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "41pls",
+              "text": "If the article mentions a skill, it should link to the skill. That is now fixed",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [
+                {
+                  "length": 34,
+                  "offset": 0,
+                  "style": "Bold"
+                }
+              ],
+              "key": "f52ae",
+              "text": "And the bigger point still stands: Claude becomes much more interesting when you mix official skills, giant community libraries, weird niche registries and standalone specialist repos instead of living inside one GitHub bookmark",
+              "type": "unstyled"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 29,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "9rftu",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 30,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "8oqh5",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "28bc6",
+              "text": "If you found this useful:",
+              "type": "header-two"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "caluq",
+              "text": "Bookmark this article. The links change and new repos pop up weekly — you'll need this as a reference.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "67t0g",
+              "text": "Like and Repost the thread above to help other builders escape the chatbot trap.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {
+                "mentions": [
+                  {
+                    "fromIndex": 11,
+                    "text": "polydao",
+                    "toIndex": 19
+                  }
+                ]
+              },
+              "entityRanges": [],
+              "inlineStyleRanges": [],
+              "key": "4frr6",
+              "text": "Follow me: @polydao for weekly deep dives into AI architecture, quant trading, and the agent economy.",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 31,
+                  "length": 13,
+                  "offset": 21
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "d2hr3",
+              "text": "Join the TG Channel: Buzzoni Notes - here I share my raw prompts, custom skills, and alpha that's too early for X",
+              "type": "unordered-list-item"
+            },
+            {
+              "data": {},
+              "entityRanges": [
+                {
+                  "key": 32,
+                  "length": 1,
+                  "offset": 0
+                }
+              ],
+              "inlineStyleRanges": [],
+              "key": "11irf",
+              "text": " ",
+              "type": "atomic"
+            },
+            {
+              "data": {},
+              "entityRanges": [],
+              "inlineStyleRanges": [
+                {
+                  "length": 65,
+                  "offset": 0,
+                  "style": "Italic"
+                }
+              ],
+              "key": "eun18",
+              "text": "Don't just read it. Build it. Change your workflow starting today",
+              "type": "blockquote"
+            }
+          ],
+          "entityMap": [
+            {
+              "key": "12",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "8",
+              "value": {
+                "data": {
+                  "entityKey": "0cfe8722-d3ab-4362-8917-79f5d8e7b142",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "31",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060543019569336323"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "19",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "23",
+              "value": {
+                "data": {
+                  "entityKey": "d1d2c326-6c16-42d2-ba64-5a3ee1855dde",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "17",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060541773424762880"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "4",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "15",
+              "value": {
+                "data": {
+                  "entityKey": "7cacda21-7f33-4387-a28f-12c6aa6a4230",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "21",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060542142544498694"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "11",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "9",
+              "value": {
+                "data": {
+                  "entityKey": "3840bb37-fd0f-4d7a-a025-29fd7410d2ad",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "27",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060542771136532482"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "22",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "26",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "13",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "24",
+              "value": {
+                "data": {
+                  "entityKey": "b027957b-da07-4ba9-a821-3ce7d19885b7",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "15",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060541511087845376"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "16",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "5",
+              "value": {
+                "data": {
+                  "entityKey": "be7ed467-d609-4016-9b2b-41f4f06432df",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "35",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060543275132485635"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "10",
+              "value": {
+                "data": {
+                  "entityKey": "db766e3f-4e6b-4ad1-b5c5-d4d87ff733ba",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "23",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060542420459171844"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "21",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "32",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "6",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "1",
+              "value": {
+                "data": {
+                  "entityKey": "14368464-103e-49c3-a075-079b7b449e38",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "37",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060544626272985090"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "17",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "25",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "14",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "31",
+              "value": {
+                "data": {
+                  "url": "https://t.me/+Wf8q84QkpyJhNjIy"
+                },
+                "mutability": "Mutable",
+                "type": "LINK"
+              }
+            },
+            {
+              "key": "0",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "20",
+              "value": {
+                "data": {
+                  "entityKey": "c533715c-5a05-493e-bc86-035a21f28403",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "19",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060541967189106688"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "27",
+              "value": {
+                "data": {
+                  "entityKey": "0b1c2a14-42d4-4277-95fa-9e9392c71520",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "1",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060524724036214789"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "2",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "18",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "30",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "7",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "29",
+              "value": {
+                "data": {
+                  "entityKey": "9e783be8-06e8-4745-81dc-120f9a08a341",
+                  "mediaItems": [
+                    {
+                      "localMediaId": "13",
+                      "mediaCategory": "DraftTweetImage",
+                      "mediaId": "2060541270066376705"
+                    }
+                  ]
+                },
+                "mutability": "Immutable",
+                "type": "MEDIA"
+              }
+            },
+            {
+              "key": "3",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            },
+            {
+              "key": "28",
+              "value": {
+                "data": {},
+                "mutability": "Immutable",
+                "type": "DIVIDER"
+              }
+            }
+          ]
+        },
+        "cover_media": {
+          "id": "QXBpTWVkaWE6DAAFCgABHJh+jWJXQAQKAAITmOXpSBZQBAAA",
+          "media_id": "2060535975227375620",
+          "media_info": {
+            "__typename": "ApiImage",
+            "color_info": {
+              "palette": [
+                {
+                  "percentage": 92.19,
+                  "rgb": {
+                    "blue": 218,
+                    "green": 232,
+                    "red": 238
+                  }
+                },
+                {
+                  "percentage": 5.21,
+                  "rgb": {
+                    "blue": 89,
+                    "green": 126,
+                    "red": 193
+                  }
+                },
+                {
+                  "percentage": 2.6,
+                  "rgb": {
+                    "blue": 110,
+                    "green": 121,
+                    "red": 119
+                  }
+                }
+              ]
+            },
+            "original_img_height": 1101,
+            "original_img_url": "https://pbs.twimg.com/media/HJh-jWJXQAQ210M.jpg",
+            "original_img_width": 2752
+          },
+          "media_key": "3_2060535975227375620"
+        },
+        "id": "QXJ0aWNsZUVudGl0eToyMDYwNTAzOTU2MDkwOTgyNDAz",
+        "lifecycle_state": {
+          "modified_at_secs": 1780147856
+        },
+        "media_entities": [
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiFMQaXgAMKAAITmOXpSBZQBAAA",
+            "media_id": "2060543275132485635",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 87.33,
+                    "rgb": {
+                      "blue": 83,
+                      "green": 116,
+                      "red": 213
+                    }
+                  },
+                  {
+                    "percentage": 10.66,
+                    "rgb": {
+                      "blue": 240,
+                      "green": 246,
+                      "red": 246
+                    }
+                  },
+                  {
+                    "percentage": 0.86,
+                    "rgb": {
+                      "blue": 121,
+                      "green": 126,
+                      "red": 127
+                    }
+                  },
+                  {
+                    "percentage": 0.63,
+                    "rgb": {
+                      "blue": 50,
+                      "green": 67,
+                      "red": 121
+                    }
+                  },
+                  {
+                    "percentage": 0.44,
+                    "rgb": {
+                      "blue": 153,
+                      "green": 174,
+                      "red": 223
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiFMQaXgAMINpB.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060543275132485635"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiDXi9WsAEKAAITmOXpSBZQBAAA",
+            "media_id": "2060541270066376705",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 46.56,
+                    "rgb": {
+                      "blue": 191,
+                      "green": 133,
+                      "red": 227
+                    }
+                  },
+                  {
+                    "percentage": 33.11,
+                    "rgb": {
+                      "blue": 200,
+                      "green": 192,
+                      "red": 209
+                    }
+                  },
+                  {
+                    "percentage": 9.43,
+                    "rgb": {
+                      "blue": 201,
+                      "green": 173,
+                      "red": 233
+                    }
+                  },
+                  {
+                    "percentage": 4.74,
+                    "rgb": {
+                      "blue": 133,
+                      "green": 87,
+                      "red": 95
+                    }
+                  },
+                  {
+                    "percentage": 3.35,
+                    "rgb": {
+                      "blue": 100,
+                      "green": 167,
+                      "red": 191
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 1536,
+              "original_img_url": "https://pbs.twimg.com/media/HJiDXi9WsAEe6Tc.jpg",
+              "original_img_width": 2752
+            },
+            "media_key": "3_2060541270066376705"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiGa5zXYAIKAAITmOXpSBZQBAAA",
+            "media_id": "2060544626272985090",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 54.24,
+                    "rgb": {
+                      "blue": 5,
+                      "green": 8,
+                      "red": 6
+                    }
+                  },
+                  {
+                    "percentage": 32.63,
+                    "rgb": {
+                      "blue": 38,
+                      "green": 86,
+                      "red": 107
+                    }
+                  },
+                  {
+                    "percentage": 6.16,
+                    "rgb": {
+                      "blue": 73,
+                      "green": 147,
+                      "red": 187
+                    }
+                  },
+                  {
+                    "percentage": 2.29,
+                    "rgb": {
+                      "blue": 100,
+                      "green": 132,
+                      "red": 155
+                    }
+                  },
+                  {
+                    "percentage": 2.23,
+                    "rgb": {
+                      "blue": 35,
+                      "green": 65,
+                      "red": 104
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 503,
+              "original_img_url": "https://pbs.twimg.com/media/HJiGa5zXYAIJnSF.jpg",
+              "original_img_width": 960
+            },
+            "media_key": "3_2060544626272985090"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiEu64XkAIKAAITmOXpSBZQBAAA",
+            "media_id": "2060542771136532482",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 91.49,
+                    "rgb": {
+                      "blue": 80,
+                      "green": 115,
+                      "red": 213
+                    }
+                  },
+                  {
+                    "percentage": 5.59,
+                    "rgb": {
+                      "blue": 197,
+                      "green": 202,
+                      "red": 205
+                    }
+                  },
+                  {
+                    "percentage": 2.78,
+                    "rgb": {
+                      "blue": 108,
+                      "green": 118,
+                      "red": 136
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiEu64XkAIyJj0.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060542771136532482"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJh0UcMWoAUKAAITmOXpSBZQBAAA",
+            "media_id": "2060524724036214789",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 49.16,
+                    "rgb": {
+                      "blue": 32,
+                      "green": 31,
+                      "red": 40
+                    }
+                  },
+                  {
+                    "percentage": 11.09,
+                    "rgb": {
+                      "blue": 89,
+                      "green": 75,
+                      "red": 40
+                    }
+                  },
+                  {
+                    "percentage": 8.41,
+                    "rgb": {
+                      "blue": 75,
+                      "green": 81,
+                      "red": 128
+                    }
+                  },
+                  {
+                    "percentage": 5.17,
+                    "rgb": {
+                      "blue": 219,
+                      "green": 219,
+                      "red": 196
+                    }
+                  },
+                  {
+                    "percentage": 2.21,
+                    "rgb": {
+                      "blue": 66,
+                      "green": 40,
+                      "red": 18
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 271,
+              "original_img_url": "https://pbs.twimg.com/media/HJh0UcMWoAUHL8e.png",
+              "original_img_width": 512
+            },
+            "media_key": "3_2060524724036214789"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiEaggXsAQKAAITmOXpSBZQBAAA",
+            "media_id": "2060542420459171844",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 93.42,
+                    "rgb": {
+                      "blue": 78,
+                      "green": 108,
+                      "red": 203
+                    }
+                  },
+                  {
+                    "percentage": 5.73,
+                    "rgb": {
+                      "blue": 250,
+                      "green": 252,
+                      "red": 253
+                    }
+                  },
+                  {
+                    "percentage": 0.64,
+                    "rgb": {
+                      "blue": 45,
+                      "green": 60,
+                      "red": 112
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiEaggXsAQAewC.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060542420459171844"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiEAH8XYAAKAAITmOXpSBZQBAAA",
+            "media_id": "2060541967189106688",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 96.51,
+                    "rgb": {
+                      "blue": 80,
+                      "green": 112,
+                      "red": 211
+                    }
+                  },
+                  {
+                    "percentage": 1.33,
+                    "rgb": {
+                      "blue": 229,
+                      "green": 230,
+                      "red": 231
+                    }
+                  },
+                  {
+                    "percentage": 1.31,
+                    "rgb": {
+                      "blue": 29,
+                      "green": 40,
+                      "red": 77
+                    }
+                  },
+                  {
+                    "percentage": 0.83,
+                    "rgb": {
+                      "blue": 99,
+                      "green": 110,
+                      "red": 139
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiEAH8XYAAkNre.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060541967189106688"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiD02HWIAAKAAITmOXpSBZQBAAA",
+            "media_id": "2060541773424762880",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 83.79,
+                    "rgb": {
+                      "blue": 84,
+                      "green": 116,
+                      "red": 215
+                    }
+                  },
+                  {
+                    "percentage": 10.15,
+                    "rgb": {
+                      "blue": 224,
+                      "green": 229,
+                      "red": 230
+                    }
+                  },
+                  {
+                    "percentage": 5.74,
+                    "rgb": {
+                      "blue": 94,
+                      "green": 103,
+                      "red": 126
+                    }
+                  },
+                  {
+                    "percentage": 0.28,
+                    "rgb": {
+                      "blue": 34,
+                      "green": 43,
+                      "red": 77
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiD02HWIAAcaFQ.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060541773424762880"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiEKVMWUAYKAAITmOXpSBZQBAAA",
+            "media_id": "2060542142544498694",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 91.26,
+                    "rgb": {
+                      "blue": 72,
+                      "green": 104,
+                      "red": 201
+                    }
+                  },
+                  {
+                    "percentage": 6.68,
+                    "rgb": {
+                      "blue": 214,
+                      "green": 225,
+                      "red": 229
+                    }
+                  },
+                  {
+                    "percentage": 1.85,
+                    "rgb": {
+                      "blue": 102,
+                      "green": 109,
+                      "red": 124
+                    }
+                  },
+                  {
+                    "percentage": 0.11,
+                    "rgb": {
+                      "blue": 133,
+                      "green": 158,
+                      "red": 217
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiEKVMWUAYKZlV.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060542142544498694"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiDlk1WcAAKAAITmOXpSBZQBAAA",
+            "media_id": "2060541511087845376",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 39.02,
+                    "rgb": {
+                      "blue": 35,
+                      "green": 42,
+                      "red": 51
+                    }
+                  },
+                  {
+                    "percentage": 19.62,
+                    "rgb": {
+                      "blue": 162,
+                      "green": 187,
+                      "red": 208
+                    }
+                  },
+                  {
+                    "percentage": 6.27,
+                    "rgb": {
+                      "blue": 197,
+                      "green": 184,
+                      "red": 174
+                    }
+                  },
+                  {
+                    "percentage": 4.59,
+                    "rgb": {
+                      "blue": 76,
+                      "green": 104,
+                      "red": 141
+                    }
+                  },
+                  {
+                    "percentage": 3.64,
+                    "rgb": {
+                      "blue": 123,
+                      "green": 167,
+                      "red": 216
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 1256,
+              "original_img_url": "https://pbs.twimg.com/media/HJiDlk1WcAA9ilt.jpg",
+              "original_img_width": 1290
+            },
+            "media_key": "3_2060541511087845376"
+          },
+          {
+            "id": "QXBpTWVkaWE6DAAFCgABHJiE9YXXUAMKAAITmOXpSBZQBAAA",
+            "media_id": "2060543019569336323",
+            "media_info": {
+              "__typename": "ApiImage",
+              "color_info": {
+                "palette": [
+                  {
+                    "percentage": 93.3,
+                    "rgb": {
+                      "blue": 75,
+                      "green": 105,
+                      "red": 202
+                    }
+                  },
+                  {
+                    "percentage": 5.39,
+                    "rgb": {
+                      "blue": 232,
+                      "green": 238,
+                      "red": 246
+                    }
+                  },
+                  {
+                    "percentage": 0.56,
+                    "rgb": {
+                      "blue": 131,
+                      "green": 152,
+                      "red": 213
+                    }
+                  },
+                  {
+                    "percentage": 0.54,
+                    "rgb": {
+                      "blue": 39,
+                      "green": 54,
+                      "red": 103
+                    }
+                  },
+                  {
+                    "percentage": 0.19,
+                    "rgb": {
+                      "blue": 51,
+                      "green": 66,
+                      "red": 113
+                    }
+                  }
+                ]
+              },
+              "original_img_height": 768,
+              "original_img_url": "https://pbs.twimg.com/media/HJiE9YXXUAM4poh.jpg",
+              "original_img_width": 1376
+            },
+            "media_key": "3_2060543019569336323"
+          }
+        ],
+        "metadata": {
+          "first_published_at_secs": 1780147856
+        },
+        "preview_text": "Most people are still using Claude like a smarter chatbot\nThat is not the game anymore\n \nYou’re competing against people who treat Claude like an operating system\n> While you’re typing one-off",
+        "rest_id": "2060503956090982403",
+        "title": "I Searched the Whole Claude Skills Ecosystem - These Are the Ones That Matter [Full GitHub Links]"
+      },
+      "combinedMediaUrl": null,
+      "communityNote": null,
+      "conversationID": "2060715587387400424",
+      "date": "Sat May 30 13:30:56 +0000 2026",
+      "date_epoch": 1780147856,
+      "display_text_range": [0, 23],
+      "entities": {
+        "urls": [
+          {
+            "display_url": "x.com/i/article/2060…",
+            "expanded_url": "http://x.com/i/article/2060503956090982403",
+            "indices": [0, 23],
+            "url": "https://t.co/E8GJ7yfZEM"
+          }
+        ],
+        "user_mentions": []
+      },
+      "fetched_on": 1780193866,
+      "hasMedia": false,
+      "hashtags": [],
+      "lang": "zxx",
+      "mediaURLs": [],
+      "media_extended": [],
+      "pollData": null,
+      "possibly_sensitive": false,
+      "qrt": null,
+      "qrtURL": null,
+      "replyingTo": null,
+      "replyingToID": null,
+      "retweet": null,
+      "retweetURL": null,
+      "text": "http://x.com/i/article/2060503956090982403",
+      "translation": null,
+      "tweetID": "2060715587387400424",
+      "tweetURL": "https://twitter.com/polydao/status/2060715587387400424"
+    },
+    "metrics": {
+      "likes": 241,
+      "replies": 15,
+      "retweets": 22
+    },
+    "user": {
+      "user_name": "Mr. Buzzoni",
+      "user_profile_image_url": "https://pbs.twimg.com/profile_images/2022077728359682048/UWClPPZX_normal.jpg",
+      "user_screen_name": "polydao",
+      "is_blue_verified": true,
+      "verification": {
+        "verified_type": null
+      },
+      "affiliates_highlighted_label": {
+        "badge_url": "https://pbs.twimg.com/profile_images/1997705113876549632/1fIc3023_bigger.jpg",
+        "description": "Kreo",
+        "url": "https://twitter.com/kreoapp",
+        "userLabelDisplayType": "Badge",
+        "userLabelType": "BusinessLabel"
+      }
+    }
+  }
+}

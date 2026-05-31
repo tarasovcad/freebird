@@ -35,9 +35,26 @@ type SimplifiedTweet = {
   user: SimplifiedUser;
 };
 
+type SimplifiedCardImage = {
+  altText: string | null;
+  height: number | null;
+  url: string | null;
+  width: number | null;
+};
+
+type SimplifiedCard = {
+  description: string | null;
+  domain: string | null;
+  image: SimplifiedCardImage | null;
+  name: string | null;
+  title: string | null;
+  url: string | null;
+};
+
 type SimplifiedPost = {
   allSameType: boolean;
   article: JsonObject | null;
+  card: SimplifiedCard | null;
   combinedMediaUrl: null;
   communityNote: null;
   conversationID: string | null;
@@ -150,6 +167,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
   const date = getString(legacy.created_at);
   const date_epoch = date ? toEpochSeconds(date) : null;
   const quotedTweet = options.includeQuotedTweet ? getQuotedTweet(tweet, legacy) : null;
+  const card = getCard(tweet, legacy);
 
   const media_extended = getMediaExtended(legacy);
   const mediaURLs = media_extended
@@ -163,6 +181,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
     post: {
       allSameType,
       article: getArticle(tweet),
+      card: simplifyCard(card),
       combinedMediaUrl: null,
       communityNote: null,
       conversationID: getString(legacy.conversation_id_str) ?? getString(tweet.conversation_id_str),
@@ -239,6 +258,165 @@ function getArticle(tweet: JsonObject): JsonObject | null {
 
   const result = articleResults.result;
   return isJsonObject(result) ? result : article;
+}
+
+function getCard(tweet: JsonObject, legacy: JsonObject): JsonObject | null {
+  const card = tweet.card;
+  if (isJsonObject(card)) {
+    return card;
+  }
+
+  const legacyCard = legacy.card;
+  return isJsonObject(legacyCard) ? legacyCard : null;
+}
+
+function simplifyCard(card: JsonObject | null): SimplifiedCard | null {
+  if (!card) {
+    return null;
+  }
+
+  const name = getString(card.name) ?? getCardString(card, "name");
+  const url = getString(card.url) ?? getCardString(card, "card_url");
+  const domain = getString(card.domain) ?? getCardString(card, "domain");
+  const title = getString(card.title) ?? getCardString(card, "title");
+  const description = getString(card.description) ?? getCardString(card, "description");
+  const image = getCardImage(card);
+
+  if (!name && !url && !domain && !title && !description && !image) {
+    return null;
+  }
+
+  return {
+    description,
+    domain,
+    image,
+    name,
+    title,
+    url,
+  };
+}
+
+function getCardImage(card: JsonObject): SimplifiedCardImage | null {
+  const candidates: Array<{key: string; altKeys: string[]}> = [
+    {
+      key: "summary_photo_image_original",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "photo_image_full_size_original",
+      altKeys: ["photo_image_full_size_alt_text", "summary_photo_image_alt_text"],
+    },
+    {
+      key: "summary_photo_image_x_large",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "photo_image_full_size_x_large",
+      altKeys: ["photo_image_full_size_alt_text", "summary_photo_image_alt_text"],
+    },
+    {
+      key: "summary_photo_image_large",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "photo_image_full_size_large",
+      altKeys: ["photo_image_full_size_alt_text", "summary_photo_image_alt_text"],
+    },
+    {
+      key: "summary_photo_image",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "photo_image_full_size",
+      altKeys: ["photo_image_full_size_alt_text", "summary_photo_image_alt_text"],
+    },
+    {
+      key: "summary_photo_image_small",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "photo_image_full_size_small",
+      altKeys: ["photo_image_full_size_alt_text", "summary_photo_image_alt_text"],
+    },
+    {
+      key: "thumbnail_image_original",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "thumbnail_image_x_large",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "thumbnail_image_large",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+    {
+      key: "thumbnail_image_small",
+      altKeys: ["summary_photo_image_alt_text", "photo_image_full_size_alt_text"],
+    },
+  ];
+
+  for (const candidate of candidates) {
+    const imageValue = getCardImageValue(card, candidate.key);
+    if (!imageValue) {
+      continue;
+    }
+
+    return {
+      altText:
+        getCardString(card, candidate.altKeys) ??
+        getCardString(card, "photo_image_full_size_alt_text") ??
+        getCardString(card, "summary_photo_image_alt_text"),
+      height: getNumber(imageValue.height),
+      url: getString(imageValue.url),
+      width: getNumber(imageValue.width),
+    };
+  }
+
+  return null;
+}
+
+function getCardString(card: JsonObject, key: string | string[]): string | null {
+  const value = getCardBindingValue(card, key);
+  if (!value) {
+    return null;
+  }
+
+  return getString(value.string_value);
+}
+
+function getCardImageValue(card: JsonObject, key: string): JsonObject | null {
+  const value = getCardBindingValue(card, key);
+  if (!value) {
+    return null;
+  }
+
+  const imageValue = value.image_value;
+  return isJsonObject(imageValue) ? imageValue : null;
+}
+
+function getCardBindingValue(card: JsonObject, key: string | string[]): JsonObject | null {
+  const keys = Array.isArray(key) ? key : [key];
+  const bindingValues = card.binding_values;
+  if (!Array.isArray(bindingValues)) {
+    return null;
+  }
+
+  for (const bindingValue of bindingValues) {
+    if (!isJsonObject(bindingValue)) {
+      continue;
+    }
+
+    const bindingKey = getString(bindingValue.key);
+    if (!bindingKey || !keys.includes(bindingKey)) {
+      continue;
+    }
+
+    const value = bindingValue.value;
+    return isJsonObject(value) ? value : null;
+  }
+
+  return null;
 }
 
 function getUser(tweet: JsonObject): JsonObject | null {
