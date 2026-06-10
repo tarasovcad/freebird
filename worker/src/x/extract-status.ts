@@ -4,7 +4,7 @@ import {isJsonObject} from "./guards";
 import {extractStatusV2Android} from "./tweet-conversation-timeline-v2-android";
 import {extractStatusV2Rest} from "./tweet-result-by-rest-id";
 import {extractStatusSyndication} from "./tweet-syndication";
-import {translateWithQwen} from "./translate-with-qwen";
+import {translateWithOpenAi} from "./translate-with-openai";
 import {
   extractStatusV2TweetDetail,
   extractStatusV2TweetDetailChain,
@@ -17,6 +17,7 @@ import type {StatusMethod} from "./status-method";
 
 type ExtractStatusOptions = {
   authTokens?: readonly string[];
+  openAiApiKey?: string;
   simultaneousRequests?: number;
   language?: string;
 };
@@ -145,9 +146,33 @@ export async function extractTranslatedStatus(
     }
   }
 
-  const qwenTweet = await translateWithQwen();
-  if (qwenTweet) {
-    return addReplyContextIfNeeded(input, qwenTweet, {...options, language});
+  if (!bestTweet) {
+    try {
+      logStatusMethod("rest-guest");
+      const tweet = await extractStatusV2Rest(input, [], {language});
+      if (hasLegacyTweet(tweet)) {
+        bestTweet = tweet;
+      }
+    } catch (error) {
+      if (error instanceof XExtractError) {
+        console.log(`rest-guest method failed (${error.code} ${error.kind}): ${error.message}`);
+        lastError = error;
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  if (bestTweet) {
+    const openAiTweet = await translateWithOpenAi({
+      apiKey: options.openAiApiKey,
+      targetLanguage: language,
+      tweet: bestTweet,
+    });
+
+    if (openAiTweet) {
+      return addReplyContextIfNeeded(input, openAiTweet, {...options, language});
+    }
   }
 
   if (bestTweet) {

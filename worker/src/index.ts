@@ -9,6 +9,7 @@ import {parseWorkaroundTokens} from "./x/workaround-tokens";
 import type {JsonObject} from "./x/types";
 
 type Bindings = {
+  OPENAI_API_KEY?: string;
   VXTWITTER_WORKAROUND_TOKENS?: string;
   RATE_LIMIT_BURST: RateLimit;
   RATE_LIMIT_PER_IP: RateLimit;
@@ -124,6 +125,7 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
       language && method === undefined
         ? extractTranslatedStatus(tweetUrl, language, {
             authTokens,
+            openAiApiKey: c.env.OPENAI_API_KEY,
             simultaneousRequests: 2,
           })
         : extractStatusByMethod(tweetUrl, method, {

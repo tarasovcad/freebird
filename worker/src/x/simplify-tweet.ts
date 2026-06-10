@@ -97,6 +97,7 @@ type SimplifiedPost = {
 };
 
 type SimplifiedTranslation = {
+  provider?: string | null;
   source_language: string | null;
   destination_language: string | null;
   text: string;
@@ -235,7 +236,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
       retweet: null,
       retweetURL: null,
       text: getTweetText(tweet, legacy),
-      translation: getGrokTranslation(tweet),
+      translation: getTranslation(tweet),
       tweetID,
       tweetURL,
     },
@@ -772,7 +773,7 @@ function getTweetText(tweet: JsonObject, legacy: JsonObject): string | null {
   return text.trimEnd();
 }
 
-function getGrokTranslation(tweet: JsonObject): SimplifiedTranslation | null {
+function getTranslation(tweet: JsonObject): SimplifiedTranslation | null {
   const availability = tweet.grok_translated_post_with_availability;
   if (!isJsonObject(availability) || availability.is_available !== true) {
     return null;
@@ -789,6 +790,7 @@ function getGrokTranslation(tweet: JsonObject): SimplifiedTranslation | null {
   }
 
   return {
+    ...(getString(data.provider) ? {provider: getString(data.provider)} : {}),
     source_language: getString(data.source_language),
     destination_language: getString(data.destination_language),
     text,
