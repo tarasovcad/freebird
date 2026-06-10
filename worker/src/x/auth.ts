@@ -13,6 +13,7 @@ type AuthHeaderOptions = {
   guestToken?: string;
   bearerToken?: string;
   userAgent?: string;
+  language?: string;
 };
 
 /**
@@ -29,7 +30,7 @@ export function getAuthHeaders(options: AuthHeaderOptions): HeadersInit {
     "User-Agent": options.userAgent ?? REQUEST_USER_AGENT,
     "x-csrf-token": csrfToken,
     "x-twitter-active-user": "yes",
-    "x-twitter-client-language": "en",
+    "x-twitter-client-language": options.language ?? "en",
   };
 
   if (options.authToken) {

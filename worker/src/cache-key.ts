@@ -3,12 +3,14 @@ export function buildCacheKey(
   urlParam: string | undefined,
   methodParam: string | undefined,
   formatParam: string | undefined,
+  langParam: string | undefined,
 ): Request {
   const {origin} = new URL(reqUrl);
   const canonical = new URL(`${origin}/status`);
   if (urlParam) canonical.searchParams.set("url", urlParam);
   if (methodParam) canonical.searchParams.set("method", methodParam);
   canonical.searchParams.set("format", canonicalizeFormat(formatParam));
+  if (langParam) canonical.searchParams.set("lang", langParam.toLowerCase());
   return new Request(canonical.toString(), {method: "GET"});
 }
 

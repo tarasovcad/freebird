@@ -10,11 +10,19 @@ import {parseTweetId} from "./tweet-url";
 import type {JsonObject} from "./types";
 import {shuffleWorkaroundTokens} from "./workaround-tokens";
 
+type ExtractStatusV2RestOptions = {
+  allowGuestFallback?: boolean;
+  language?: string;
+};
+
 export async function extractStatusV2Rest(
   input: string,
   authTokens: readonly string[] = [],
+  options: ExtractStatusV2RestOptions = {},
 ): Promise<JsonObject> {
   const tweetId = parseTweetId(input);
+  const allowGuestFallback = options.allowGuestFallback ?? true;
+  let lastAuthError: XExtractError | null = null;
 
   // Auth requests intentionally omit the guest token. X's CDN keys its cache on
   // (URL + x-guest-token) and ignores the auth_token cookie, so sending the same
@@ -22,26 +30,33 @@ export async function extractStatusV2Rest(
   // entry and return the same response regardless of authentication level.
   for (const authToken of shuffleWorkaroundTokens(authTokens)) {
     try {
-      return await fetchTweetResultByRestId(tweetId, undefined, authToken);
+      return await fetchTweetResultByRestId(tweetId, undefined, authToken, options.language);
     } catch (error) {
       if (!(error instanceof XExtractError)) {
         throw error;
       }
+
+      lastAuthError = error;
     }
+  }
+
+  if (!allowGuestFallback) {
+    throw lastAuthError ?? new XExtractError(401, "unauthorized", "No auth tokens configured.");
   }
 
   const guestToken = await getGuestToken();
   console.log("no auth tokens - using guest token");
-  return fetchTweetResultByRestId(tweetId, guestToken);
+  return fetchTweetResultByRestId(tweetId, guestToken, undefined, options.language);
 }
 
 async function fetchTweetResultByRestId(
   tweetId: string,
   guestToken: string | undefined,
   authToken?: string,
+  language?: string,
 ): Promise<JsonObject> {
   const response = await fetch(buildTweetResultByRestIdUrl(tweetId), {
-    headers: getAuthHeaders({authToken, guestToken}),
+    headers: getAuthHeaders({authToken, guestToken, language}),
   });
 
   if (response.status === 429) {

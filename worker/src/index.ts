@@ -1,6 +1,8 @@
 import {Hono, Context} from "hono";
 import {buildCacheKey} from "./cache-key";
+import {parseLanguageParam, parseResponseFormat} from "./route-params";
 import {XExtractError} from "./x/errors";
+import {extractTranslatedStatus} from "./x/extract-status";
 import {simplifyStatusResponse, isReplyChainResult} from "./x/simplify-status-response";
 import {extractStatusByMethod, isStatusMethod} from "./x/status-method";
 import {parseWorkaroundTokens} from "./x/workaround-tokens";
@@ -41,7 +43,8 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
   const url = c.req.param("url") || c.req.query("url");
   const methodParam = c.req.param("method") || c.req.query("method");
   const formatParam = c.req.param("format") || c.req.query("format");
-  const cacheKey = buildCacheKey(c.req.url, url, methodParam, formatParam);
+  const langParam = c.req.param("lang");
+  const cacheKey = buildCacheKey(c.req.url, url, methodParam, formatParam, langParam);
 
   const cachedResponse = await cache.match(cacheKey);
   if (cachedResponse) {
@@ -107,21 +110,33 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
       );
     }
 
+    const language = parseLanguageParam(langParam);
+    if (langParam && !language) {
+      return withTiming(
+        c.json({error: "Invalid lang parameter.", kind: "invalid_input"}, 400),
+        startedAt,
+      );
+    }
+
     const method = methodParam && isStatusMethod(methodParam) ? methodParam : undefined;
     const tweetDetailMode = method === "tweet-detail" && format === "simple" ? "parsed" : "raw";
-    const status = await extractStatusByMethod(url, method, {
-      authTokens,
-      simultaneousRequests: 2,
-      tweetDetailMode,
-    });
+    const extractForRequest = (tweetUrl: string) =>
+      language && method === undefined
+        ? extractTranslatedStatus(tweetUrl, language, {
+            authTokens,
+            simultaneousRequests: 2,
+          })
+        : extractStatusByMethod(tweetUrl, method, {
+            authTokens,
+            simultaneousRequests: 2,
+            tweetDetailMode,
+          });
+
+    const status = await extractForRequest(url);
 
     const resolveTweet = async (tweetUrl: string): Promise<JsonObject | null> => {
       try {
-        const resolvedStatus = await extractStatusByMethod(tweetUrl, method, {
-          authTokens,
-          simultaneousRequests: 2,
-          tweetDetailMode,
-        });
+        const resolvedStatus = await extractForRequest(tweetUrl);
 
         return isReplyChainResult(resolvedStatus) ? resolvedStatus.tweet : resolvedStatus;
       } catch (error) {
@@ -166,25 +181,11 @@ app.get("/favicon.ico", (c) => c.redirect("/favicon.png", 301));
 app.get("/status", statusHandler);
 app.get("/status/:url", statusHandler);
 app.get("/status/:url/format/:format", statusHandler);
+app.get("/status/:url/lang/:lang", statusHandler);
+app.get("/status/:url/format/:format/lang/:lang", statusHandler);
+app.get("/status/:url/lang/:lang/format/:format", statusHandler);
 app.get("/status/:url/method/:method", statusHandler);
 app.get("/status/:url/method/:method/format/:format", statusHandler);
 app.get("/status/:url/format/:format/method/:method", statusHandler);
-
-function parseResponseFormat(value?: string): "full" | "simple" | null {
-  if (!value) {
-    return "full";
-  }
-
-  switch (value) {
-    case "full":
-    case "raw":
-      return "full";
-    case "simple":
-    case "simplified":
-      return "simple";
-    default:
-      return null;
-  }
-}
 
 export default app;

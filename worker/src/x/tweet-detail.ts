@@ -9,6 +9,7 @@ import {shuffleWorkaroundTokens} from "./workaround-tokens";
 
 type ExtractStatusV2TweetDetailOptions = {
   simultaneousRequests?: number;
+  language?: string;
 };
 
 export type ReplyChainResult = JsonObject & {
@@ -28,7 +29,7 @@ export async function extractStatusV2TweetDetail(
   const simultaneousRequests = normalizeSimultaneousRequests(options.simultaneousRequests);
 
   return fetchWithTokenAttempts(tokens, simultaneousRequests, async (token) =>
-    parseTweetDetail(await fetchTweetDetail(tweetId, token), tweetId),
+    parseTweetDetail(await fetchTweetDetail(tweetId, token, options.language), tweetId),
   );
 }
 
@@ -43,7 +44,11 @@ export async function extractStatusV2TweetDetailChain(
   const simultaneousRequests = normalizeSimultaneousRequests(options.simultaneousRequests);
 
   return fetchWithTokenAttempts(tokens, simultaneousRequests, async (token) =>
-    parseTweetDetailChain(await fetchTweetDetail(tweetId, token), tweetId, fallbackTweet),
+    parseTweetDetailChain(
+      await fetchTweetDetail(tweetId, token, options.language),
+      tweetId,
+      fallbackTweet,
+    ),
   );
 }
 
@@ -57,7 +62,7 @@ export async function extractStatusV2TweetDetailRaw(
   const simultaneousRequests = normalizeSimultaneousRequests(options.simultaneousRequests);
 
   return fetchWithTokenAttempts(tokens, simultaneousRequests, (token) =>
-    fetchTweetDetail(tweetId, token),
+    fetchTweetDetail(tweetId, token, options.language),
   );
 }
 
@@ -71,9 +76,13 @@ function getTweetDetailTokens(authTokens: readonly string[]): string[] {
   return tokens;
 }
 
-async function fetchTweetDetail(tweetId: string, authToken: string): Promise<JsonObject> {
+async function fetchTweetDetail(
+  tweetId: string,
+  authToken: string,
+  language?: string,
+): Promise<JsonObject> {
   const response = await fetch(buildTweetDetailUrl(tweetId), {
-    headers: getAuthHeaders({authToken}),
+    headers: getAuthHeaders({authToken, language}),
   });
 
   if (response.status === 429) {

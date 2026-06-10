@@ -91,9 +91,15 @@ type SimplifiedPost = {
   retweet: null;
   retweetURL: null;
   text: string | null;
-  translation: null;
+  translation: SimplifiedTranslation | null;
   tweetID: string | null;
   tweetURL: string | null;
+};
+
+type SimplifiedTranslation = {
+  source_language: string | null;
+  destination_language: string | null;
+  text: string;
 };
 
 type SimplifiedMetrics = {
@@ -229,7 +235,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
       retweet: null,
       retweetURL: null,
       text: getTweetText(tweet, legacy),
-      translation: null,
+      translation: getGrokTranslation(tweet),
       tweetID,
       tweetURL,
     },
@@ -764,6 +770,29 @@ function getTweetText(tweet: JsonObject, legacy: JsonObject): string | null {
   }
 
   return text.trimEnd();
+}
+
+function getGrokTranslation(tweet: JsonObject): SimplifiedTranslation | null {
+  const availability = tweet.grok_translated_post_with_availability;
+  if (!isJsonObject(availability) || availability.is_available !== true) {
+    return null;
+  }
+
+  const data = availability.data;
+  if (!isJsonObject(data)) {
+    return null;
+  }
+
+  const text = getString(data.translation);
+  if (!text) {
+    return null;
+  }
+
+  return {
+    source_language: getString(data.source_language),
+    destination_language: getString(data.destination_language),
+    text,
+  };
 }
 
 function getNoteTweet(tweet: JsonObject): JsonObject | null {
