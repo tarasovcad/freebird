@@ -35,6 +35,16 @@ type SimplifiedTweet = {
   user: SimplifiedUser;
 };
 
+type SimplifiedCommunity = {
+  id: string | null;
+  isCommunityPost: boolean;
+};
+
+type SimplifiedHashtag = {
+  indices: [number, number] | null;
+  text: string;
+};
+
 type SimplifiedCardImage = {
   altText: string | null;
   height: number | null;
@@ -56,6 +66,7 @@ type SimplifiedPost = {
   article: JsonObject | null;
   card: SimplifiedCard | null;
   combinedMediaUrl: null;
+  community: SimplifiedCommunity;
   communityNote: null;
   conversationID: string | null;
   date: string | null;
@@ -67,7 +78,7 @@ type SimplifiedPost = {
   };
   fetched_on: number;
   hasMedia: boolean;
-  hashtags: string[];
+  hashtags: SimplifiedHashtag[];
   lang: string | null;
   mediaURLs: string[];
   media_extended: MediaExtended[];
@@ -138,6 +149,14 @@ export async function simplifyTweetWithResolvedTweets(
     }
   }
 
+  if (simplified.post.article) {
+    simplified.post.article = await resolveArticleTweets(
+      simplified.post.article,
+      resolveTweet,
+      options,
+    );
+  }
+
   return simplified;
 }
 
@@ -168,6 +187,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
   const date_epoch = date ? toEpochSeconds(date) : null;
   const quotedTweet = options.includeQuotedTweet ? getQuotedTweet(tweet, legacy) : null;
   const card = getCard(tweet, legacy);
+  const community = getCommunity(tweet);
 
   const media_extended = getMediaExtended(legacy);
   const mediaURLs = media_extended
@@ -181,8 +201,9 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
     post: {
       allSameType,
       article: getArticle(tweet),
-      card: simplifyCard(card),
+      card: simplifyCard(tweet, legacy, card),
       combinedMediaUrl: null,
+      community,
       communityNote: null,
       conversationID: getString(legacy.conversation_id_str) ?? getString(tweet.conversation_id_str),
       date,
@@ -245,6 +266,73 @@ function getLegacyTweet(tweet: JsonObject): JsonObject {
   return isJsonObject(legacy) ? legacy : tweet;
 }
 
+async function resolveArticleTweets(
+  article: JsonObject,
+  resolveTweet: (url: string) => Promise<JsonObject | null>,
+  options: SimplifyTweetOptions,
+): Promise<JsonObject> {
+  const contentState = article.content_state;
+  if (!isJsonObject(contentState)) {
+    return article;
+  }
+
+  const entityMap = contentState.entityMap;
+  if (!Array.isArray(entityMap)) {
+    return article;
+  }
+
+  const resolvedEntityMap = await Promise.all(
+    entityMap.map(async (entry): Promise<unknown> => {
+      if (!isJsonObject(entry)) {
+        return entry;
+      }
+
+      const value = entry.value;
+      if (!isJsonObject(value) || value.type !== "TWEET") {
+        return entry;
+      }
+
+      const data = value.data;
+      if (!isJsonObject(data)) {
+        return entry;
+      }
+
+      const tweetId = getString(data.tweetId);
+      if (!tweetId) {
+        return entry;
+      }
+
+      const rawTweet = await resolveTweet(`https://twitter.com/i/status/${tweetId}`);
+      if (!rawTweet) {
+        return entry;
+      }
+
+      const resolvedTweet = flattenQuotedTweet(
+        simplifyTweetInternal(rawTweet, {...options, includeQuotedTweet: false}),
+      );
+
+      return {
+        ...entry,
+        value: {
+          ...value,
+          data: {
+            ...data,
+            resolvedTweet,
+          },
+        },
+      };
+    }),
+  );
+
+  return {
+    ...article,
+    content_state: {
+      ...contentState,
+      entityMap: resolvedEntityMap,
+    },
+  };
+}
+
 function getArticle(tweet: JsonObject): JsonObject | null {
   const article = tweet.article;
   if (!isJsonObject(article)) {
@@ -270,13 +358,46 @@ function getCard(tweet: JsonObject, legacy: JsonObject): JsonObject | null {
   return isJsonObject(legacyCard) ? legacyCard : null;
 }
 
-function simplifyCard(card: JsonObject | null): SimplifiedCard | null {
+function getCommunity(tweet: JsonObject): SimplifiedCommunity {
+  const result = getCommunityResult(tweet);
+  return {
+    id: getString(result?.id_str) ?? getString(result?.id) ?? getString(result?.rest_id),
+    isCommunityPost: Boolean(result),
+  };
+}
+
+function getCommunityResult(tweet: JsonObject): JsonObject | null {
+  const candidates = [tweet.community_results, getLegacyTweet(tweet).community_results];
+
+  for (const candidate of candidates) {
+    if (!isJsonObject(candidate)) {
+      continue;
+    }
+
+    const result = candidate.result;
+    if (isJsonObject(result)) {
+      return result;
+    }
+
+    if (candidate.__typename === "Community") {
+      return candidate;
+    }
+  }
+
+  return null;
+}
+
+function simplifyCard(
+  tweet: JsonObject,
+  legacy: JsonObject,
+  card: JsonObject | null,
+): SimplifiedCard | null {
   if (!card) {
     return null;
   }
 
   const name = getString(card.name) ?? getCardString(card, "name");
-  const url = getString(card.url) ?? getCardString(card, "card_url");
+  const url = getResolvedCardUrl(tweet, legacy, card);
   const domain = getString(card.domain) ?? getCardString(card, "domain");
   const title = getString(card.title) ?? getCardString(card, "title");
   const description = getString(card.description) ?? getCardString(card, "description");
@@ -294,6 +415,33 @@ function simplifyCard(card: JsonObject | null): SimplifiedCard | null {
     title,
     url,
   };
+}
+
+function getResolvedCardUrl(
+  tweet: JsonObject,
+  legacy: JsonObject,
+  card: JsonObject,
+): string | null {
+  const url = getString(card.url) ?? getCardString(card, "card_url");
+  if (!url) {
+    return null;
+  }
+
+  const urls = getUrlEntities(legacy, getNoteTweet(tweet));
+  for (const urlEntity of urls) {
+    const shortUrl = getString(urlEntity.url);
+    const expandedUrl = getString(urlEntity.expanded_url) ?? getString(urlEntity.expanded);
+
+    if (url === shortUrl && expandedUrl) {
+      return expandedUrl;
+    }
+
+    if (url === expandedUrl) {
+      return expandedUrl;
+    }
+  }
+
+  return url;
 }
 
 function getCardImage(card: JsonObject): SimplifiedCardImage | null {
@@ -564,7 +712,7 @@ function getAvatarUrl(user: JsonObject, tweet: JsonObject): string | null {
   return getString(avatar.image_url);
 }
 
-function getHashtags(legacy: JsonObject): string[] {
+function getHashtags(legacy: JsonObject): SimplifiedHashtag[] {
   const entities = legacy.entities;
   if (!isJsonObject(entities)) {
     return [];
@@ -576,8 +724,22 @@ function getHashtags(legacy: JsonObject): string[] {
   }
 
   return hashtags
-    .map((item) => (isJsonObject(item) ? getString(item.text) : null))
-    .filter((tag): tag is string => typeof tag === "string");
+    .map((item) => {
+      if (!isJsonObject(item)) {
+        return null;
+      }
+
+      const text = getString(item.text);
+      if (!text) {
+        return null;
+      }
+
+      return {
+        indices: getIndices(item.indices),
+        text,
+      };
+    })
+    .filter((hashtag): hashtag is SimplifiedHashtag => hashtag !== null);
 }
 
 function getDisplayTextRange(legacy: JsonObject): [number, number] | null {
@@ -601,24 +763,7 @@ function getTweetText(tweet: JsonObject, legacy: JsonObject): string | null {
     return null;
   }
 
-  text = removeReplyPrefix(text, getDisplayTextRange(legacy));
-  text = expandTextUrls(text, getUrlEntities(legacy, noteTweet));
-  text = removeMediaTextUrls(text, getMediaList(legacy));
-
   return text.trimEnd();
-}
-
-function removeReplyPrefix(text: string, displayTextRange: [number, number] | null): string {
-  if (!displayTextRange) {
-    return text;
-  }
-
-  const [start] = displayTextRange;
-  if (start <= 0) {
-    return text;
-  }
-
-  return text.slice(start);
 }
 
 function getNoteTweet(tweet: JsonObject): JsonObject | null {
@@ -722,41 +867,6 @@ function getIndices(indices: unknown): [number, number] | null {
   return null;
 }
 
-function expandTextUrls(text: string, urls: JsonObject[]): string {
-  let expandedText = text;
-
-  for (const urlEntity of urls) {
-    const shortUrl = getString(urlEntity.url);
-    const expandedUrl = getString(urlEntity.expanded_url) ?? getString(urlEntity.expanded);
-
-    if (!shortUrl || !expandedUrl) {
-      continue;
-    }
-
-    expandedText = replaceAll(expandedText, shortUrl, expandedUrl);
-  }
-
-  return expandedText;
-}
-
-function removeMediaTextUrls(text: string, mediaList: JsonObject[] | null): string {
-  if (!mediaList) {
-    return text;
-  }
-
-  let cleanedText = text;
-  for (const media of mediaList) {
-    const mediaUrl = getString(media.url);
-    if (!mediaUrl) {
-      continue;
-    }
-
-    cleanedText = replaceAll(cleanedText, mediaUrl, "");
-  }
-
-  return cleanedText;
-}
-
 function getEntitiesList(entities: unknown, key: string): JsonObject[] {
   if (!isJsonObject(entities)) {
     return [];
@@ -768,10 +878,6 @@ function getEntitiesList(entities: unknown, key: string): JsonObject[] {
   }
 
   return list.filter((item): item is JsonObject => isJsonObject(item));
-}
-
-function replaceAll(text: string, search: string, replacement: string): string {
-  return text.split(search).join(replacement);
 }
 
 function getMediaExtended(legacy: JsonObject): MediaExtended[] {

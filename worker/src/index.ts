@@ -1,4 +1,5 @@
 import {Hono, Context} from "hono";
+import {buildCacheKey} from "./cache-key";
 import {XExtractError} from "./x/errors";
 import {simplifyStatusResponse, isReplyChainResult} from "./x/simplify-status-response";
 import {extractStatusByMethod, isStatusMethod} from "./x/status-method";
@@ -13,8 +14,8 @@ type Bindings = {
 // Access environment bindings through the Hono context's env property
 const app = new Hono<{Bindings: Bindings}>();
 
-const STATUS_CACHE_TTL_SECONDS = 60;
-const STATUS_NOT_FOUND_CACHE_TTL_SECONDS = 30;
+const STATUS_CACHE_TTL_SECONDS = 60 * 60; // 1 hour
+const STATUS_NOT_FOUND_CACHE_TTL_SECONDS = 60; // 1 min
 
 const withTiming = (response: Response, startedAt: number) => {
   const durationMs = performance.now() - startedAt;
@@ -33,7 +34,15 @@ const withTiming = (response: Response, startedAt: number) => {
 const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
   const startedAt = performance.now();
   const cache = caches.default;
-  const cacheKey = new Request(c.req.url, {method: "GET"});
+
+  // Extract params before the cache check so we can build a normalised key.
+  // This collapses format aliases (raw=full, simplified=simple) and route-order
+  // variants (/method/X/format/Y vs /format/Y/method/X) into a single entry.
+  const url = c.req.param("url") || c.req.query("url");
+  const methodParam = c.req.param("method") || c.req.query("method");
+  const formatParam = c.req.param("format") || c.req.query("format");
+  const cacheKey = buildCacheKey(c.req.url, url, methodParam, formatParam);
+
   const cachedResponse = await cache.match(cacheKey);
   if (cachedResponse) {
     return withTiming(cachedResponse, startedAt);
@@ -72,10 +81,6 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
       startedAt,
     );
   }
-
-  const url = c.req.param("url") || c.req.query("url");
-  const methodParam = c.req.param("method") || c.req.query("method");
-  const formatParam = c.req.param("format") || c.req.query("format");
 
   if (!url) {
     return withTiming(
@@ -132,24 +137,21 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
       format === "simple" ? await simplifyStatusResponse(status, resolveTweet) : status;
     const response = c.json(payload);
 
-    if (response.status === 200) {
-      response.headers.set(
-        "Cache-Control",
-        `public, max-age=60, s-maxage=${STATUS_CACHE_TTL_SECONDS}`,
-      );
-      await cache.put(cacheKey, response.clone());
-    } else if (response.status === 404) {
-      response.headers.set(
-        "Cache-Control",
-        `public, max-age=0, s-maxage=${STATUS_NOT_FOUND_CACHE_TTL_SECONDS}`,
-      );
-      await cache.put(cacheKey, response.clone());
-    }
+    response.headers.set("Cache-Control", `public, max-age=${STATUS_CACHE_TTL_SECONDS}`);
+    await cache.put(cacheKey, response.clone());
 
     return withTiming(response, startedAt);
   } catch (error) {
     if (error instanceof XExtractError) {
-      return withTiming(c.json({error: error.message, kind: error.kind}, error.code), startedAt);
+      const errResponse = c.json({error: error.message, kind: error.kind}, error.code);
+      if (error.code === 404) {
+        errResponse.headers.set(
+          "Cache-Control",
+          `public, max-age=${STATUS_NOT_FOUND_CACHE_TTL_SECONDS}`,
+        );
+        await cache.put(cacheKey, errResponse.clone());
+      }
+      return withTiming(errResponse, startedAt);
     }
 
     return withTiming(

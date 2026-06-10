@@ -15,26 +15,29 @@ export async function extractStatusV2Rest(
   authTokens: readonly string[] = [],
 ): Promise<JsonObject> {
   const tweetId = parseTweetId(input);
-  const guestToken = await getGuestToken();
 
-  // first try to use the auth tokens
+  // Auth requests intentionally omit the guest token. X's CDN keys its cache on
+  // (URL + x-guest-token) and ignores the auth_token cookie, so sending the same
+  // guest token for both auth and guest requests causes them to share X's cache
+  // entry and return the same response regardless of authentication level.
   for (const authToken of shuffleWorkaroundTokens(authTokens)) {
     try {
-      return await fetchTweetResultByRestId(tweetId, guestToken, authToken);
+      return await fetchTweetResultByRestId(tweetId, undefined, authToken);
     } catch (error) {
       if (!(error instanceof XExtractError)) {
         throw error;
       }
     }
   }
+
+  const guestToken = await getGuestToken();
   console.log("no auth tokens - using guest token");
-  // if no auth tokens are provided, use the guest token
   return fetchTweetResultByRestId(tweetId, guestToken);
 }
 
 async function fetchTweetResultByRestId(
   tweetId: string,
-  guestToken: string,
+  guestToken: string | undefined,
   authToken?: string,
 ): Promise<JsonObject> {
   const response = await fetch(buildTweetResultByRestIdUrl(tweetId), {
