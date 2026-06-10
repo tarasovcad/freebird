@@ -1,4 +1,4 @@
-<img src="./public/logo.svg" alt="Freebird logo" width="64" />
+<img src="./public/logo.svg" alt="Freebird logo" width="72" />
 
 # Freebird
 
@@ -26,6 +26,7 @@ The long-term goal is to make Freebird a flexible fetcher that can normalize con
 - [ ] Add examples for each supported platform
 - [ ] Add tests and fixtures for platform-specific responses
 - [ ] Expand the public API docs
+- [ ] Improve OpenAI translation latency
 
 ## API routes
 
@@ -36,6 +37,9 @@ The worker exposes `GET` routes for fetching status data.
 | `/status`                                    | Base route. Expects `url` as a query parameter or path parameter.              |
 | `/status/:url`                               | Fetch a status using the provided URL. The URL path segment should be encoded. |
 | `/status/:url/format/:format`                | Fetch a status and force a response format.                                    |
+| `/status/:url/lang/:lang`                    | Fetch a status translated to the requested language.                           |
+| `/status/:url/format/:format/lang/:lang`     | Fetch a translated status and force a response format.                         |
+| `/status/:url/lang/:lang/format/:format`     | Same as above, with the path segment order reversed.                           |
 | `/status/:url/method/:method`                | Fetch a status with a specific extraction method.                              |
 | `/status/:url/method/:method/format/:format` | Fetch a status with both a specific method and format.                         |
 | `/status/:url/format/:format/method/:method` | Same as above, with the path segment order reversed.                           |
@@ -47,6 +51,7 @@ The worker exposes `GET` routes for fetching status data.
 | `url`     | Path segment or query string | The X/Twitter URL or identifier to fetch. If used in the path, it must be URL-encoded.               |
 | `method`  | Path segment or query string | Selects the extraction strategy. If omitted, Freebird automatically tries the best available method. |
 | `format`  | Path segment or query string | Controls the response shape.                                                                         |
+| `lang`    | Path segment                 | Requests a translated status using a BCP 47-style language code such as `en`, `uk`, or `pt-br`.      |
 
 ### Supported `method` values
 
@@ -66,11 +71,33 @@ The worker exposes `GET` routes for fetching status data.
 | `full`       | Returns the full structured response. `raw` is accepted as an alias. |
 | `simple`     | Returns a simplified response. `simplified` is accepted as an alias. |
 
+### Translation
+
+Freebird supports translated status responses with the `lang` path parameter:
+
+```text
+GET /status/:url/lang/:lang
+GET /status/:url/format/:format/lang/:lang
+GET /status/:url/lang/:lang/format/:format
+```
+
+Translation runs only when `lang` is present and no explicit `method` is selected. Freebird currently tries three translation methods in order:
+
+| Order | Method          | What it does                                                                                 |
+| ----- | --------------- | -------------------------------------------------------------------------------------------- |
+| 1     | `rest-auth`     | Tries X/Grok translation through the authenticated REST flow. Requires configured X tokens.  |
+| 2     | `tweet-detail`  | Tries X/Grok translation through Tweet Detail. Requires configured X tokens.                 |
+| 3     | OpenAI fallback | Fetches the source tweet and translates it with OpenAI when X/Grok does not return a result. |
+
+The OpenAI fallback requires `OPENAI_API_KEY` to be configured. In simplified responses, OpenAI fallback translations include `provider: "openai"` inside the `translation` object.
+
 ### Request examples
 
 ```text
 GET /status/783450192846517203
 GET /status/783450192846517203/format/simple
+GET /status/783450192846517203/lang/uk
+GET /status/783450192846517203/format/simple/lang/uk
 GET /status/783450192846517203/method/rest-guest
 GET /status?url=783450192846517203&format=full&method=v2
 ```

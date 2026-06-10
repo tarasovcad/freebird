@@ -4,6 +4,7 @@ import {isJsonObject} from "./guards";
 import {extractStatusV2Android} from "./tweet-conversation-timeline-v2-android";
 import {extractStatusV2Rest} from "./tweet-result-by-rest-id";
 import {extractStatusSyndication} from "./tweet-syndication";
+import {translateWithOpenAi} from "./translate-with-openai";
 import {
   extractStatusV2TweetDetail,
   extractStatusV2TweetDetailChain,
@@ -16,7 +17,9 @@ import type {StatusMethod} from "./status-method";
 
 type ExtractStatusOptions = {
   authTokens?: readonly string[];
+  openAiApiKey?: string;
   simultaneousRequests?: number;
+  language?: string;
 };
 //  The extractStatus function tries multiple methods to extract tweet data
 export async function extractStatus(
@@ -84,6 +87,101 @@ export async function extractStatus(
   throw lastError ?? new XExtractError(502, "upstream_error", "All extraction methods failed.");
 }
 
+export async function extractTranslatedStatus(
+  input: string,
+  language: string,
+  options: ExtractStatusOptions = {},
+): Promise<JsonObject> {
+  const authTokens = options.authTokens ?? [];
+  const simultaneousRequests = options.simultaneousRequests;
+  const attempts: Array<{method: StatusMethod; fetch: () => Promise<JsonObject>}> = [];
+
+  if (authTokens.length > 0) {
+    attempts.push(
+      {
+        method: "rest-auth",
+        fetch: () => extractStatusV2Rest(input, authTokens, {allowGuestFallback: false, language}),
+      },
+      {
+        method: "tweet-detail",
+        fetch: () =>
+          extractStatusV2TweetDetail(input, authTokens, {simultaneousRequests, language}),
+      },
+    );
+  }
+
+  let lastError: XExtractError | null =
+    authTokens.length === 0
+      ? new XExtractError(401, "unauthorized", "No auth tokens configured.")
+      : null;
+  let bestTweet: JsonObject | null = null;
+
+  for (const attempt of attempts) {
+    try {
+      logStatusMethod(attempt.method);
+      const tweet = await attempt.fetch();
+      if (!hasLegacyTweet(tweet)) {
+        console.log(`${attempt.method} method returned unexpected response, trying next...`);
+        lastError = new XExtractError(502, "upstream_error", "Unexpected response from X.");
+        continue;
+      }
+
+      bestTweet = tweet;
+      if (hasAvailableGrokTranslation(tweet)) {
+        console.log(`${attempt.method} method returned Grok translation`);
+        return addReplyContextIfNeeded(input, tweet, {...options, language});
+      }
+
+      console.log(`${attempt.method} method did not return Grok translation, trying next...`);
+    } catch (error) {
+      if (error instanceof XExtractError) {
+        console.log(
+          `${attempt.method} method failed (${error.code} ${error.kind}): ${error.message}`,
+        );
+        lastError = error;
+        continue;
+      }
+
+      throw error;
+    }
+  }
+
+  if (!bestTweet) {
+    try {
+      logStatusMethod("rest-guest");
+      const tweet = await extractStatusV2Rest(input, [], {language});
+      if (hasLegacyTweet(tweet)) {
+        bestTweet = tweet;
+      }
+    } catch (error) {
+      if (error instanceof XExtractError) {
+        console.log(`rest-guest method failed (${error.code} ${error.kind}): ${error.message}`);
+        lastError = error;
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  if (bestTweet) {
+    const openAiTweet = await translateWithOpenAi({
+      apiKey: options.openAiApiKey,
+      targetLanguage: language,
+      tweet: bestTweet,
+    });
+
+    if (openAiTweet) {
+      return addReplyContextIfNeeded(input, openAiTweet, {...options, language});
+    }
+  }
+
+  if (bestTweet) {
+    return addReplyContextIfNeeded(input, bestTweet, {...options, language});
+  }
+
+  throw lastError ?? new XExtractError(502, "upstream_error", "All translation methods failed.");
+}
+
 async function addReplyContextIfNeeded(
   input: string,
   tweet: JsonObject,
@@ -100,7 +198,12 @@ async function addReplyContextIfNeeded(
 
   try {
     return normalizeReplyChainResult(
-      await extractStatusV2TweetDetailChain(input, authTokens, {simultaneousRequests}, fixedTweet),
+      await extractStatusV2TweetDetailChain(
+        input,
+        authTokens,
+        {simultaneousRequests, language: options.language},
+        fixedTweet,
+      ),
     );
   } catch (error) {
     if (!(error instanceof XExtractError)) {
@@ -118,6 +221,16 @@ async function addReplyContextIfNeeded(
 
 function hasLegacyTweet(tweet: JsonObject): boolean {
   return isJsonObject(tweet.legacy);
+}
+
+function hasAvailableGrokTranslation(tweet: JsonObject): boolean {
+  const translation = tweet.grok_translated_post_with_availability;
+  if (!isJsonObject(translation) || translation.is_available !== true) {
+    return false;
+  }
+
+  const data = translation.data;
+  return isJsonObject(data) && typeof data.translation === "string";
 }
 
 function normalizeReplyChainResult(result: ReplyChainResult): ReplyChainResult {

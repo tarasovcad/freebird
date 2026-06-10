@@ -1,11 +1,15 @@
 import {Hono, Context} from "hono";
+import {buildCacheKey} from "./cache-key";
+import {parseLanguageParam, parseResponseFormat} from "./route-params";
 import {XExtractError} from "./x/errors";
+import {extractTranslatedStatus} from "./x/extract-status";
 import {simplifyStatusResponse, isReplyChainResult} from "./x/simplify-status-response";
 import {extractStatusByMethod, isStatusMethod} from "./x/status-method";
 import {parseWorkaroundTokens} from "./x/workaround-tokens";
 import type {JsonObject} from "./x/types";
 
 type Bindings = {
+  OPENAI_API_KEY?: string;
   VXTWITTER_WORKAROUND_TOKENS?: string;
   RATE_LIMIT_BURST: RateLimit;
   RATE_LIMIT_PER_IP: RateLimit;
@@ -13,8 +17,8 @@ type Bindings = {
 // Access environment bindings through the Hono context's env property
 const app = new Hono<{Bindings: Bindings}>();
 
-const STATUS_CACHE_TTL_SECONDS = 60;
-const STATUS_NOT_FOUND_CACHE_TTL_SECONDS = 30;
+const STATUS_CACHE_TTL_SECONDS = 60 * 60; // 1 hour
+const STATUS_NOT_FOUND_CACHE_TTL_SECONDS = 60; // 1 min
 
 const withTiming = (response: Response, startedAt: number) => {
   const durationMs = performance.now() - startedAt;
@@ -33,7 +37,16 @@ const withTiming = (response: Response, startedAt: number) => {
 const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
   const startedAt = performance.now();
   const cache = caches.default;
-  const cacheKey = new Request(c.req.url, {method: "GET"});
+
+  // Extract params before the cache check so we can build a normalised key.
+  // This collapses format aliases (raw=full, simplified=simple) and route-order
+  // variants (/method/X/format/Y vs /format/Y/method/X) into a single entry.
+  const url = c.req.param("url") || c.req.query("url");
+  const methodParam = c.req.param("method") || c.req.query("method");
+  const formatParam = c.req.param("format") || c.req.query("format");
+  const langParam = c.req.param("lang");
+  const cacheKey = buildCacheKey(c.req.url, url, methodParam, formatParam, langParam);
+
   const cachedResponse = await cache.match(cacheKey);
   if (cachedResponse) {
     return withTiming(cachedResponse, startedAt);
@@ -73,10 +86,6 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
     );
   }
 
-  const url = c.req.param("url") || c.req.query("url");
-  const methodParam = c.req.param("method") || c.req.query("method");
-  const formatParam = c.req.param("format") || c.req.query("format");
-
   if (!url) {
     return withTiming(
       c.json({error: "Missing url parameter.", kind: "invalid_input"}, 400),
@@ -102,21 +111,34 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
       );
     }
 
+    const language = parseLanguageParam(langParam);
+    if (langParam && !language) {
+      return withTiming(
+        c.json({error: "Invalid lang parameter.", kind: "invalid_input"}, 400),
+        startedAt,
+      );
+    }
+
     const method = methodParam && isStatusMethod(methodParam) ? methodParam : undefined;
     const tweetDetailMode = method === "tweet-detail" && format === "simple" ? "parsed" : "raw";
-    const status = await extractStatusByMethod(url, method, {
-      authTokens,
-      simultaneousRequests: 2,
-      tweetDetailMode,
-    });
+    const extractForRequest = (tweetUrl: string) =>
+      language && method === undefined
+        ? extractTranslatedStatus(tweetUrl, language, {
+            authTokens,
+            openAiApiKey: c.env.OPENAI_API_KEY,
+            simultaneousRequests: 2,
+          })
+        : extractStatusByMethod(tweetUrl, method, {
+            authTokens,
+            simultaneousRequests: 2,
+            tweetDetailMode,
+          });
+
+    const status = await extractForRequest(url);
 
     const resolveTweet = async (tweetUrl: string): Promise<JsonObject | null> => {
       try {
-        const resolvedStatus = await extractStatusByMethod(tweetUrl, method, {
-          authTokens,
-          simultaneousRequests: 2,
-          tweetDetailMode,
-        });
+        const resolvedStatus = await extractForRequest(tweetUrl);
 
         return isReplyChainResult(resolvedStatus) ? resolvedStatus.tweet : resolvedStatus;
       } catch (error) {
@@ -132,24 +154,21 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
       format === "simple" ? await simplifyStatusResponse(status, resolveTweet) : status;
     const response = c.json(payload);
 
-    if (response.status === 200) {
-      response.headers.set(
-        "Cache-Control",
-        `public, max-age=60, s-maxage=${STATUS_CACHE_TTL_SECONDS}`,
-      );
-      await cache.put(cacheKey, response.clone());
-    } else if (response.status === 404) {
-      response.headers.set(
-        "Cache-Control",
-        `public, max-age=0, s-maxage=${STATUS_NOT_FOUND_CACHE_TTL_SECONDS}`,
-      );
-      await cache.put(cacheKey, response.clone());
-    }
+    response.headers.set("Cache-Control", `public, max-age=${STATUS_CACHE_TTL_SECONDS}`);
+    await cache.put(cacheKey, response.clone());
 
     return withTiming(response, startedAt);
   } catch (error) {
     if (error instanceof XExtractError) {
-      return withTiming(c.json({error: error.message, kind: error.kind}, error.code), startedAt);
+      const errResponse = c.json({error: error.message, kind: error.kind}, error.code);
+      if (error.code === 404) {
+        errResponse.headers.set(
+          "Cache-Control",
+          `public, max-age=${STATUS_NOT_FOUND_CACHE_TTL_SECONDS}`,
+        );
+        await cache.put(cacheKey, errResponse.clone());
+      }
+      return withTiming(errResponse, startedAt);
     }
 
     return withTiming(
@@ -159,30 +178,16 @@ const statusHandler = async (c: Context<{Bindings: Bindings}>) => {
   }
 };
 
-app.get("/favicon.ico", (c) => c.redirect("/favicon.svg", 301));
+app.get("/favicon.ico", (c) => c.redirect("/favicon.png", 301));
 
 app.get("/status", statusHandler);
 app.get("/status/:url", statusHandler);
 app.get("/status/:url/format/:format", statusHandler);
+app.get("/status/:url/lang/:lang", statusHandler);
+app.get("/status/:url/format/:format/lang/:lang", statusHandler);
+app.get("/status/:url/lang/:lang/format/:format", statusHandler);
 app.get("/status/:url/method/:method", statusHandler);
 app.get("/status/:url/method/:method/format/:format", statusHandler);
 app.get("/status/:url/format/:format/method/:method", statusHandler);
-
-function parseResponseFormat(value?: string): "full" | "simple" | null {
-  if (!value) {
-    return "full";
-  }
-
-  switch (value) {
-    case "full":
-    case "raw":
-      return "full";
-    case "simple":
-    case "simplified":
-      return "simple";
-    default:
-      return null;
-  }
-}
 
 export default app;

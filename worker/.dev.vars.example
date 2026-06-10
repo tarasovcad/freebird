@@ -20,3 +20,7 @@
 #
 # Leave empty to use anonymous guest-token fetching only.
 VXTWITTER_WORKAROUND_TOKENS=
+
+# Optional OpenAI API key for AI translation fallback when X/Grok does not
+# return a translation.
+OPENAI_API_KEY=
