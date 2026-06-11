@@ -1,5 +1,9 @@
 import {getAuthHeaders} from "./auth";
-import {TWEET_DETAIL_FEATURES, TWEET_DETAIL_QUERY_ID} from "./constants";
+import {
+  TWEET_DETAIL_FEATURES,
+  TWEET_DETAIL_QUERY_ID,
+  TWEET_RESULT_BY_REST_ID_FIELD_TOGGLES,
+} from "./constants";
 import {XExtractError} from "./errors";
 import {isJsonObject} from "./guards";
 import {fetchWithTokenAttempts, normalizeSimultaneousRequests} from "./token-attempts";
@@ -112,6 +116,7 @@ function buildTweetDetailUrl(tweetId: string): string {
   const searchParams = new URLSearchParams({
     variables: JSON.stringify(variables),
     features: JSON.stringify(TWEET_DETAIL_FEATURES),
+    fieldToggles: JSON.stringify(TWEET_RESULT_BY_REST_ID_FIELD_TOGGLES),
   });
 
   return `https://x.com/i/api/graphql/${TWEET_DETAIL_QUERY_ID}/TweetDetail?${searchParams}`;
