@@ -79,6 +79,7 @@ type SimplifiedPost = {
   fetched_on: number;
   hasMedia: boolean;
   hashtags: SimplifiedHashtag[];
+  is_translatable: boolean | null;
   lang: string | null;
   mediaURLs: string[];
   media_extended: MediaExtended[];
@@ -100,7 +101,16 @@ type SimplifiedTranslation = {
   provider?: string | null;
   source_language: string | null;
   destination_language: string | null;
+  preview_translation: string | null;
   text: string;
+  entities: SimplifiedTranslationEntities;
+};
+
+type SimplifiedTranslationEntities = {
+  hashtags: SimplifiedHashtag[];
+  symbols: SimplifiedHashtag[];
+  urls: LinkEntity[];
+  user_mentions: UserMentionEntity[];
 };
 
 type SimplifiedMetrics = {
@@ -220,6 +230,7 @@ function simplifyTweetInternal(tweet: JsonObject, options: SimplifyTweetOptions)
       fetched_on: options.fetched_on,
       hasMedia,
       hashtags: getHashtags(legacy),
+      is_translatable: getBoolean(tweet.is_translatable),
       lang: getString(legacy.lang),
       mediaURLs,
       media_extended,
@@ -358,7 +369,8 @@ function getArticle(tweet: JsonObject): JsonObject | null {
 function getCard(tweet: JsonObject, legacy: JsonObject): JsonObject | null {
   const card = tweet.card;
   if (isJsonObject(card)) {
-    return card;
+    const legacyCard = card.legacy;
+    return isJsonObject(legacyCard) ? legacyCard : card;
   }
 
   const legacyCard = legacy.card;
@@ -793,8 +805,45 @@ function getTranslation(tweet: JsonObject): SimplifiedTranslation | null {
     ...(getString(data.provider) ? {provider: getString(data.provider)} : {}),
     source_language: getString(data.source_language),
     destination_language: getString(data.destination_language),
+    preview_translation: getString(data.preview_translation),
     text,
+    entities: getTranslationEntities(data.entities),
   };
+}
+
+function getTranslationEntities(entities: unknown): SimplifiedTranslationEntities {
+  return {
+    hashtags: getBasicTextEntities(entities, "hashtags"),
+    symbols: getBasicTextEntities(entities, "symbols"),
+    urls: getEntitiesList(entities, "urls").map((urlEntity) => ({
+      display_url: getString(urlEntity.display_url) ?? getString(urlEntity.display),
+      expanded_url: getString(urlEntity.expanded_url) ?? getString(urlEntity.expanded),
+      indices: getIndices(urlEntity.indices),
+      url: getString(urlEntity.url),
+    })),
+    user_mentions: getEntitiesList(entities, "user_mentions").map((mention) => ({
+      id_str: getString(mention.id_str),
+      indices: getIndices(mention.indices),
+      name: getString(mention.name),
+      screen_name: getString(mention.screen_name),
+    })),
+  };
+}
+
+function getBasicTextEntities(entities: unknown, key: string): SimplifiedHashtag[] {
+  return getEntitiesList(entities, key)
+    .map((item) => {
+      const text = getString(item.text);
+      if (!text) {
+        return null;
+      }
+
+      return {
+        indices: getIndices(item.indices),
+        text,
+      };
+    })
+    .filter((entity): entity is SimplifiedHashtag => entity !== null);
 }
 
 function getNoteTweet(tweet: JsonObject): JsonObject | null {
