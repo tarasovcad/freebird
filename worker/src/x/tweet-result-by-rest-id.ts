@@ -43,9 +43,8 @@ export async function extractStatusV2Rest(
   if (!allowGuestFallback) {
     throw lastAuthError ?? new XExtractError(401, "unauthorized", "No auth tokens configured.");
   }
-
+  console.log("fetching status using rest-guest method");
   const guestToken = await getGuestToken();
-  console.log("no auth tokens - using guest token");
   return fetchTweetResultByRestId(tweetId, guestToken, undefined, options.language);
 }
 

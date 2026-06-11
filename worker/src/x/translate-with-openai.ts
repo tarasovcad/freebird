@@ -52,10 +52,22 @@ export async function translateWithOpenAi({
         provider: "openai",
         source_language: sourceLanguage ?? null,
         destination_language: targetLanguage,
+        entities: {
+          hashtags: [],
+          symbols: [],
+          urls: [],
+          user_mentions: [],
+        },
+        preview_translation: getPreviewTranslation(translation),
         translation,
       },
     },
   };
+}
+
+function getPreviewTranslation(translation: string): string {
+  const preview = translation.slice(0, 280);
+  return preview.length < translation.length ? preview.trimEnd() : preview;
 }
 
 async function requestOpenAiTranslation({
